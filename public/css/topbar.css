@@ -1,0 +1,12 @@
+.topbar {
+	height : 60px;
+    border-radius: 0;
+    background-color: #438EB9 !important;;
+    border-color: #438EB9 !important;;
+    /*background-color: #E7FEDB;
+    border-color: #E7FEDB;*/
+    color: white !important;
+} 	
+	.topbar a {
+		color: white !important;
+	}
