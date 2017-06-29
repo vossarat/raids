@@ -8,57 +8,41 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 use XBase\Table;
 use App\Register;
+use Artisan;
 
 class Setup extends Model
 {
 	public function makeTableRegister()
 	{
-		if ($this->isTable('register'))
-		{
-			$this->deleteTable('register');
-		}
-		else
-		{
-			$this->createTableRegister();
+		if ($this->isTable('register'))	{
+			Artisan::call('migrate:rollback', array('--path' => 'database/migrations/register'));
+			return 'Таблица для регистра удалена';
+		} else {
+			Artisan::call('migrate', array('--path' => 'database/migrations/register'));
+			return 'Таблица для регистра создана';
 		}
 	}
-
-	public function createTableRegister()
+	
+	public function makeReferences()
 	{
-		Schema::create('register',
-			function (Blueprint $table)
-			{
-				$table->increments('id');
-				$table->unsignedMediumInteger('number')->nullable();
-				$table->string('FIO', 50)->nullable();
-				
-				$table->unsignedTinyInteger('sex_id')->nullable();
-				$table->foreign('sex_id')->references('id')->on('sex');
+		if ($this->isTable('city'))	{
+			Artisan::call('migrate:rollback', array('--path' => 'database/migrations/references'));
+			return 'Справочники удалены';
+		} else {
+			Artisan::call('migrate', array('--path' => 'database/migrations/references'));			
+			Artisan::call('db:seed', array('--class' => 'ReferenceRegionSeeder'));
+			Artisan::call('db:seed', array('--class' => 'ReferenceCitySeeder'));
+			Artisan::call('db:seed', array('--class' => 'ReferenceSexSeeder'));
+			Artisan::call('db:seed', array('--class' => 'ReferenceYearSeeder'));
 			
-				$table->date('birthday')->nullable();
-				$table->unsignedTinyInteger('region')->nullable();
-				$table->unsignedTinyInteger('city')->nullable();
-				$table->string('code', 3)->nullable();
-				$table->unsignedSmallInteger('diagnose')->nullable();
-				$table->unsignedTinyInteger('famaly')->nullable();
-				$table->unsignedTinyInteger('national')->nullable();
-				$table->unsignedTinyInteger('social')->nullable();
-				$table->unsignedTinyInteger('ifa')->nullable();
-				$table->date('grantdate')->nullable();
-				$table->timestamps();
-			});
-	}
-
-	public function deleteTable($table)
-	{
-		Schema::drop($table);
+			return 'Справочники созданы';
+		}
 	}
 
 	public function isTable($table)
 	{
 		$isTable = false;
-		if (Schema::hasTable($table))
-		{
+		if (Schema::hasTable($table)) {
 			$isTable = true;
 		}
 		return $isTable;
@@ -76,8 +60,8 @@ class Setup extends Model
 				'name'    =>$record->name,
 				'sex_id'     =>$record->sex,
 				'age'     =>$record->age,
-				'region'  =>$record->region,
-				'sity'    =>$record->sity,
+				'region_id'  =>$record->region,
+				'sity_id'    =>$record->sity,
 				'kod'     =>$record->kod,
 				'diagnoz' =>$record->diagnoz,
 				'family'  =>$record->family,
@@ -88,33 +72,28 @@ class Setup extends Model
 				'second'  =>$record->second,
 			);
 		}
-
 		return $mybase;
 	}
 
 	public function seedRegister($appendData)
 	{
 		
-		foreach ($appendData as $register)
-		{
+		foreach ($appendData as $register) {
 			Register::create([
 					'number'=>$register['nomer'],
 					'FIO'=>$register['name'],
 					'sex_id'=>$register['sex_id'],
 					'birthday'=>date("Y-m-d", strtotime($register['date']) - $register['age']*365*24*60*60),
-					'region'=>$register['region'],
-					'city'=>$register['sity'],
+					'region_id'=>$register['region_id'],
+					'city_id'=>$register['sity_id'],
 					'code'=>$register['kod'],
 					'diagnose'=>$register['diagnoz'],
-					'famaly'=>$register['family'],
+					'family'=>$register['family'],
 					'national'=>$register['national'],
 					'social'=>$register['social'],
 					'ifa'=>$register['ifa'],
-					'grantdate'=> date('Y.m.d',strtotime($register['date'])),
-
+					'grantdate'=> date('Y-m-d',strtotime($register['date'])),
 				]);
 		}
 	}
-
-
 }

@@ -16,15 +16,23 @@ class SetupController extends Controller
 	public function index()
 	{
 		$isTableRegister = $this->setup->isTable('register');
-		return view('setup.index')->with(['isTableRegister'=>$isTableRegister]);
+		$isReferences = $this->setup->isTable('city');
+		return view('setup.index')->with([
+				'isTableRegister'=>$isTableRegister,
+				'isReferences'=>$isReferences,
+			]);
 	}
 
 	public function makeTableRegister()
 	{
-		$this->setup->makeTableRegister();
-		$isTableRegister = $this->setup->isTable('register');
-		$message = $isTableRegister ? 'Таблица для регистра создана': 'Таблица для регистра удалена';
+		$message = $this->setup->makeTableRegister();
 		return redirect()->back()->withErrors(['create'=>$message]);
+	}
+	
+	public function makeReferences()
+	{
+		$message = $this->setup->makeReferences();		
+		return redirect()->back()->withErrors(['reference'=>$message]);
 	}
 
 	public function appendTable()

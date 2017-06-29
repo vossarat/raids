@@ -9,26 +9,24 @@
 		
 		<div class="col-md-4">
 			<div class="form-group">			
-				<button type="submit" class="btn btn-primary btn-lg">
-					Создание справочников
+				<button type="submit" class="btn {{ $isReferences ? 'btn-danger':'btn-primary' }} btn-lg">
+					{{ $isReferences ? 'Удаление ':'Создание ' }} справочников
 				</button>
 			</div>
 		</div>
 		
 		<div class="col-md-8">
-			<div class="form-group">			
 				@if($errors->has('reference'))
 					<div class="alert alert-warning">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 						{{ $errors->first('reference') }}
 					</div>			
 				@endif
-			</div>
 		</div>
 	</form>
 </div> {{-- end создать справочник --}}
 
-<div class="row">
+<div class="row"> {{-- создать таблицу register --}}
 	<form class="form-inline" role="form" method="POST" action="{{ url('/setup/make/register') }}">
 		{{ csrf_field() }}
 		
@@ -47,7 +45,7 @@
 			@endif
 		</div>
 	</form>
-</div>
+</div> {{-- end создать таблицу register --}}
 
 
 

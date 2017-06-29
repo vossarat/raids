@@ -1,7 +1,7 @@
 @extends('layouts.template')
 
 @section('content')
-<h1 class="page-header">Регистер</h1>
+<h1 class="page-header">Регистр</h1>
 
 <form action="{{ route('create') }}">
 	<div class="form-group">
@@ -26,7 +26,9 @@
 			<th>Фамилия И.О.</th>
 			<th>Пол</th>
 			<th>Дата рождения</th>
-			<th>Город</th>
+			<th>Местонахождение</th>
+			<th>Дата</th>
+			<th>Регион</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -36,7 +38,9 @@
 			<td>{{ $patient->FIO }}</td>
 			<td>{{ $patient->sex[0]->name }}</td>
 			<td>{{ date('d-m-Y',strtotime($patient->birthday)) }}</td>
-			<td>{{ $patient->city }}</td>
+			<td>{{ $patient->city[0]->name }}</td>
+			<td>{{ $patient->grantdate->format('Y') }}</td>
+			<td>{{ $patient->region[0]->name }}</td>
 		</tr>
 		@endforeach
 
@@ -44,19 +48,10 @@
 </table>
 
 {{ $viewdata->appends([
-						'sex' => isset($sex) ? $sex :'',
-						'city' => isset($city) ? $city:'',
+						'sex' => isset($filterSex) ? $filterSex :'',
+						'city' => isset($filterCity) ? $filterCity:'',
+						'region' => isset($filterRegion) ? $filterRegion:'',
 						'filter' => 'filter',
 						])->links() }}
-
-{{--@push('css')
-<link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}" />
-@endpush
-
-@push('scripts')
-<script src="{{ asset('js/index/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('js/index/select.js') }}"></script>
-<script src="{{ asset('js/index/index.js') }}"></script>
-@endpush--}}
 
 @endsection

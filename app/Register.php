@@ -7,17 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class Register extends Model
 {
 	protected $table = 'register';
+	
+	protected $dates = ['grantdate'];
 
 	protected $fillable = [
 		'number',
 		'FIO',
 		'sex_id',
 		'birthday',
-		'region',
-		'city',
+		'region_id',
+		'city_id',
 		'code',
 		'diagnose',
-		'famaly',
+		'family',
 		'national',
 		'social',
 		'ifa',
@@ -27,6 +29,16 @@ class Register extends Model
 	public function sex()
 	{
 		return $this->hasMany('App\Sex', 'id', 'sex_id');
+	}
+	
+	public function city()
+	{
+		return $this->hasMany('App\City', 'id', 'city_id');
+	}
+	
+	public function region()
+	{
+		return $this->hasMany('App\Region', 'id', 'region_id');
 	}
 	
 	public function ScopeSexId($query, $sex)
@@ -42,9 +54,17 @@ class Register extends Model
 	{
 		if (!is_null($city))
 		{
-			return $query->where('city', $city);
+			return $query->where('city_id', $city);
 		}
 	}
+	
+	public function ScopeRegionId($query, $region)
+	{
+		if (!is_null($region))
+		{
+			return $query->where('region_id', $region);
+		}
+	}	
 
 
 }

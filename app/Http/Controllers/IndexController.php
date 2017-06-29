@@ -6,52 +6,51 @@ use Illuminate\Http\Request;
 use App\Register;
 use App\City;
 use App\Sex;
+use App\Region;
 
 class IndexController extends Controller
 {
-	public function __construct(Register $register, City $city, Sex $sex)
+	public function __construct(Register $register, City $city, Sex $sex, Region $region)
 	{
 		$this->register = $register;
 		$this->city = $city;
 		$this->sex = $sex;
+		$this->region = $region;
 	}
 
 	/**
-	* Display a listing of the resource.
+	* Отображение таблицы регистра больных ВИЧ
+	* @param Request
+	* Request проверяется на наличие данных по фильтрации
+	* если filter (кнопка фильтр была нажата), то данные фильтруются
 	*
-	* @return \Illuminate\Http\Response
+	* @return \Illuminate\Http\Response 
 	*/
 	public function index(Request $request)
-	{		
-		$patients = $this->register;
- 		$filterSex = null;
-		$filterCity = null;
+	{
+		$patients = $this->register; //экземпляр класса Register
+ 		$filterSex = null; // фильтра по полу пока нет
+		$filterCity = null;// фильтра по городу пока нет
+		$filterRegion = null;// фильтра по региону/ЛПУ пока нет
 		
-		if( $request->has('filter') ) {			
+		if( $request->has('filter') ) {	// проверка на кнопку фильтра		
 			$filterSex = $request->get('sex');
 			$filterCity = $request->get('city');
-			$patients = $this->register->sexId($filterSex)->cityId($filterCity);
+			$filterRegion = $request->get('region');
+			$patients = $this->register->sexId($filterSex)->cityId($filterCity)->regionId($filterRegion); //фильтруем данные
 		}
  		
 		return view('index.index')->with([
-				'viewdata'=>$patients->paginate(10),
-				'referenceCity'=>$this->city->all(),
-				'referenceSex'=>$this->sex->all(),
-				'sex'=>$filterSex,
-				'city'=>$filterCity,
+				'viewdata' => $patients->paginate(10),
+				'referenceCity' => $this->city->all(),
+				'referenceSex' => $this->sex->all(),
+				'referenceRegion' => $this->region->all(),
+				'filterSex' => $filterSex,
+				'filterCity' => $filterCity,
+				'filterRegion' => $filterRegion,
 			]);
 	}
 	
-	/*public function index()
-	{
- 		$patients = $this->register->paginate(10);
-		return view('index.index')->with([
-				'viewdata'=>$patients,
-				'referenceCity'=>$this->city->all(),
-				'referenceSex'=>$this->sex->all(),
-			]);
-	}*/
-
 	/**
 	* Show the form for creating a new resource.
 	*
