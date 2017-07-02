@@ -15,7 +15,9 @@ class CreateRegister extends Migration
     {
         Schema::create('register', function (Blueprint $table) {
             $table->increments('id');
+			
 			$table->unsignedMediumInteger('number')->nullable();
+			
 			$table->string('FIO', 50)->nullable();
 			
 			$table->unsignedTinyInteger('sex_id')->nullable();
@@ -30,12 +32,20 @@ class CreateRegister extends Migration
 			$table->foreign('city_id')->references('id')->on('city');
 			
 			$table->string('code', 3)->nullable();
-			$table->unsignedSmallInteger('diagnose')->nullable();
-			$table->unsignedTinyInteger('family')->nullable();
-			$table->unsignedTinyInteger('national')->nullable();
-			$table->unsignedTinyInteger('social')->nullable();
-			$table->unsignedTinyInteger('ifa')->nullable();
+			
+			$table->unsignedSmallInteger('diagnose_id')->nullable();
+			$table->foreign('diagnose_id')->references('id')->on('diagnose');
+			
+			$table->unsignedTinyInteger('family_id')->nullable();
+			
+			$table->unsignedTinyInteger('national_id')->nullable();
+			
+			$table->unsignedTinyInteger('social_id')->nullable();
+			
+			$table->unsignedTinyInteger('ifa_id')->nullable();
+			
 			$table->date('grantdate')->nullable();
+			
 			$table->timestamps();
         });
     }

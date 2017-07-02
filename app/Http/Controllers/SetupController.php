@@ -42,12 +42,9 @@ class SetupController extends Controller
 		$fileTableName = $_FILES['filedbf']['name'];
 		if(move_uploaded_file($pathTmp, $pathToCopy.$fileTableName)) {
 			$appendData = $this->setup->appendData($pathToCopy.$fileTableName);
-		
 			$this->setup->seedRegister($appendData);
-			
 			return redirect()->back()->withErrors(['append'=>'Данные добавлены']);
-		}
-		
+		}		
 	}
 
 }

@@ -2,15 +2,15 @@
 
 @section('content')
 
-<h1 class="page-header">Окно формы</h1>
+<h1 class="page-header">Картотека</h1>
 	<div class="panel panel-default">
 		<div class="panel-heading"> {{-- заголовок окна --}}
-			Заголовок окна
-			<a href="{{ route('index') }}" class="close" data-dismiss="alert" aria-hidden="true">&times;</a> {{-- х закрыть --}}
+			Добавление информации по пациенту
+			<a href="{{ route('index.index') }}" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
 		</div>
 
 		<div class="panel-body">
-			<form class="form-horizontal" role="form" method="POST" action="{{ route('store') }}">
+			<form class="form-horizontal" role="form" method="POST" action="{{ route('index.store') }}">
 				{{ csrf_field() }}
 
 				@include('index.form')
@@ -18,7 +18,7 @@
 				<div class="form-group">
 					<div class="col-md-3 col-md-offset-1">
 						<button type="submit" class="btn btn-primary">
-							Кнопка
+							Сохранить
 						</button>
 					</div>
 				</div>

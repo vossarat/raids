@@ -34,6 +34,11 @@ class Setup extends Model
 			Artisan::call('db:seed', array('--class' => 'ReferenceCitySeeder'));
 			Artisan::call('db:seed', array('--class' => 'ReferenceSexSeeder'));
 			Artisan::call('db:seed', array('--class' => 'ReferenceYearSeeder'));
+			Artisan::call('db:seed', array('--class' => 'ReferenceDiagnoseSeeder'));
+			Artisan::call('db:seed', array('--class' => 'ReferenceFamilySeeder'));
+			Artisan::call('db:seed', array('--class' => 'ReferenceNationalSeeder'));
+			Artisan::call('db:seed', array('--class' => 'ReferenceSocialSeeder'));
+			Artisan::call('db:seed', array('--class' => 'ReferenceIfaSeeder'));
 			
 			return 'Справочники созданы';
 		}
@@ -58,10 +63,10 @@ class Setup extends Model
 			$mybase[] = array(
 				'nomer'   =>$record->nomer,
 				'name'    =>$record->name,
-				'sex_id'     =>$record->sex,
+				'sex'     =>$record->sex,
 				'age'     =>$record->age,
-				'region_id'  =>$record->region,
-				'sity_id'    =>$record->sity,
+				'region'  =>$record->region,
+				'sity'    =>$record->sity,
 				'kod'     =>$record->kod,
 				'diagnoz' =>$record->diagnoz,
 				'family'  =>$record->family,
@@ -82,18 +87,19 @@ class Setup extends Model
 			Register::create([
 					'number'=>$register['nomer'],
 					'FIO'=>$register['name'],
-					'sex_id'=>$register['sex_id'],
+					'sex_id'=>$register['sex'],
 					'birthday'=>date("Y-m-d", strtotime($register['date']) - $register['age']*365*24*60*60),
-					'region_id'=>$register['region_id'],
-					'city_id'=>$register['sity_id'],
+					'region_id'=>$register['region'],
+					'city_id'=>$register['sity']+1, //+1 для того чтоб в справочник city добавить код 0-не указано
 					'code'=>$register['kod'],
-					'diagnose'=>$register['diagnoz'],
-					'family'=>$register['family'],
-					'national'=>$register['national'],
-					'social'=>$register['social'],
-					'ifa'=>$register['ifa'],
+					'diagnose_id'=>$register['diagnoz'],
+					'family_id'=>$register['family']-1, //-1 для того чтоб в справочник family установить код "нет данных" на 0
+					'national_id'=>$register['national'],
+					'social_id'=>$register['social'],
+					'ifa_id'=>$register['ifa'],
 					'grantdate'=> date('Y-m-d',strtotime($register['date'])),
 				]);
 		}
 	}
+
 }

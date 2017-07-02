@@ -2,12 +2,12 @@
 
 use Illuminate\Database\Seeder;
 
-class ReferenceCitySeeder extends Seeder
+class ReferenceFamilySeeder extends Seeder
 {
     protected $data = array(
-		['id' => 0, 'name' => 'не указано'],
-		['id' => 1, 'name' => 'область'],
-		['id' => 2, 'name' => 'город'],
+		['id' => 0, 'name' => 'нет данных'],
+		['id' => 1, 'name' => 'не женат/не замужем'],
+		['id' => 2, 'name' => 'женат/замужем'],
 	);
 
 	/**
@@ -17,7 +17,7 @@ class ReferenceCitySeeder extends Seeder
 	*/
 	public function run()
 	{
-		$this->seedingTable('city', $this->data);
+		$this->seedingTable('family', $this->data);
 	}
 
 	public function seedingTable($table, $items)

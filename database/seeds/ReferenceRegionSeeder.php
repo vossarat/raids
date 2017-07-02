@@ -5,6 +5,7 @@ use Illuminate\Database\Seeder;
 class ReferenceRegionSeeder extends Seeder
 {
 	protected $data = array(
+				['id' => 0,'name'=>'не указано'],
 				['id' => 3,'name'=>'Айыpтауский'],
 				['id' => 4,'name'=>'Зеpендинский'],
 				['id' => 6,'name'=>'Уалихановский'],

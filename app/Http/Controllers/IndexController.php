@@ -3,19 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\RegisterRequest;
 use App\Register;
 use App\City;
 use App\Sex;
 use App\Region;
+use App\Diagnose;
+use App\Family;
+use App\National;
+use App\Social;
+use App\Ifa;
 
 class IndexController extends Controller
 {
-	public function __construct(Register $register, City $city, Sex $sex, Region $region)
+	public function __construct(Register $register, City $city, Sex $sex, Region $region , Diagnose $diagnose, Family $family, National $national, Social $social, Ifa $ifa)
 	{
 		$this->register = $register;
 		$this->city = $city;
 		$this->sex = $sex;
 		$this->region = $region;
+		$this->diagnose = $diagnose;
+		$this->family = $family;
+		$this->national = $national;
+		$this->social = $social;
+		$this->ifa = $ifa;
 	}
 
 	/**
@@ -41,10 +52,15 @@ class IndexController extends Controller
 		}
  		
 		return view('index.index')->with([
-				'viewdata' => $patients->paginate(10),
+				'viewdata' => $patients->orderBy('grantdate','desc')->paginate(10),
 				'referenceCity' => $this->city->all(),
 				'referenceSex' => $this->sex->all(),
 				'referenceRegion' => $this->region->all(),
+				'referenceDiagnose' => $this->diagnose->all(),
+				'referenceFamily' => $this->family->all(),
+				'referenceNational' => $this->national->all(),
+				'referenceSocial' => $this->social->all(),
+				'referenceIfa' => $this->ifa->all(),
 				'filterSex' => $filterSex,
 				'filterCity' => $filterCity,
 				'filterRegion' => $filterRegion,
@@ -58,7 +74,16 @@ class IndexController extends Controller
 	*/
 	public function create()
 	{
-		return view('index.create');
+		return view('index.create')->with([
+				'referenceSex' => $this->sex->all(),		
+				'referenceCity' => $this->city->all(),		
+				'referenceRegion' => $this->region->all(),		
+				'referenceDiagnose' => $this->diagnose->all(),
+				'referenceFamily' => $this->family->all(),
+				'referenceNational' => $this->national->all(),
+				'referenceSocial' => $this->social->all(),
+				'referenceIfa' => $this->ifa->all(),		
+			]);
 	}
 
 	/**
@@ -67,10 +92,10 @@ class IndexController extends Controller
 	* @param  \Illuminate\Http\Request  $request
 	* @return \Illuminate\Http\Response
 	*/
-	public function store(Request $request)
+	public function store(RegisterRequest $request)
 	{
-		Register::create($request->all());
-		return redirect(route('index'))->with('message','Пациент добавлен');
+		Register::create($request->modifyRequest());
+		return redirect(route('index.index'))->with('message','Пациент добавлен');
 	}
 
 	/**
@@ -92,7 +117,17 @@ class IndexController extends Controller
 	*/
 	public function edit($id)
 	{
-		//
+		return view('index.edit')->with([
+				'referenceSex' => $this->sex->all(),		
+				'referenceCity' => $this->city->all(),
+				'referenceRegion' => $this->region->all(),		
+				'referenceDiagnose' => $this->diagnose->all(),
+				'referenceFamily' => $this->family->all(),
+				'referenceNational' => $this->national->all(),
+				'referenceSocial' => $this->social->all(),
+				'referenceIfa' => $this->ifa->all(),		
+				'viewdata' => $this->register->find($id),		
+			]);
 	}
 
 	/**
@@ -102,9 +137,13 @@ class IndexController extends Controller
 	* @param  int  $id
 	* @return \Illuminate\Http\Response
 	*/
-	public function update(Request $request, $id)
+	public function update(RegisterRequest $request, $id)
 	{
-		//
+		$patient=$this->register->find($id);	
+		
+		$patient->update($request->modifyRequest());
+		$patient->save();
+		return redirect(route('index.index'))->with('message',"Информация по пациенту $patient->FIO изменена");
 	}
 
 	/**
@@ -115,6 +154,8 @@ class IndexController extends Controller
 	*/
 	public function destroy($id)
 	{
-		//
+		$patient = $this->register->find($id);
+		$patient->delete();
+		return back()->with('message',"Информация по пациенту $patient->FIO удалена");
 	}
 }

@@ -8,7 +8,8 @@ return view('welcome');
 return view('layouts.template');
 });*/
 
-Route::resource('/','IndexController');
+Route::get('/','IndexController@index');
+Route::resource('index','IndexController');
 
 Route::prefix('setup')->group(
 	function ()

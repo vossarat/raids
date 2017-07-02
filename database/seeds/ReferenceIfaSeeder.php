@@ -2,12 +2,11 @@
 
 use Illuminate\Database\Seeder;
 
-class ReferenceCitySeeder extends Seeder
+class ReferenceIfaSeeder extends Seeder
 {
     protected $data = array(
-		['id' => 0, 'name' => 'не указано'],
-		['id' => 1, 'name' => 'область'],
-		['id' => 2, 'name' => 'город'],
+		['id' => 1, 'name' => 'отрицательный'],
+		['id' => 2, 'name' => 'положительный'],
 	);
 
 	/**
@@ -17,7 +16,7 @@ class ReferenceCitySeeder extends Seeder
 	*/
 	public function run()
 	{
-		$this->seedingTable('city', $this->data);
+		$this->seedingTable('ifa', $this->data);
 	}
 
 	public function seedingTable($table, $items)

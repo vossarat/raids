@@ -8,8 +8,13 @@ class Register extends Model
 {
 	protected $table = 'register';
 	
-	protected $dates = ['grantdate'];
-
+	protected $dates = [
+        'created_at',
+        'updated_at',
+        'grantdate',
+        'birthday',
+    ];
+    
 	protected $fillable = [
 		'number',
 		'FIO',
@@ -18,14 +23,14 @@ class Register extends Model
 		'region_id',
 		'city_id',
 		'code',
-		'diagnose',
-		'family',
-		'national',
-		'social',
-		'ifa',
+		'diagnose_id',
+		'family_id',
+		'national_id',
+		'social_id',
+		'ifa_id',
 		'grantdate',
 	];
-
+	
 	public function sex()
 	{
 		return $this->hasMany('App\Sex', 'id', 'sex_id');
@@ -64,7 +69,6 @@ class Register extends Model
 		{
 			return $query->where('region_id', $region);
 		}
-	}	
-
-
+	}
+	
 }

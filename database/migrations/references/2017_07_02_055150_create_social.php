@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCity extends Migration
+class CreateSocial extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateCity extends Migration
      */
     public function up()
     {
-        Schema::create('city', function (Blueprint $table) {
+        Schema::create('social', function (Blueprint $table) {
             $table->unsignedTinyInteger('id')->nullable();
 			$table->primary('id');
-			$table->string('name', 10)->nullable();
+			$table->string('name', 23)->nullable();
         });
     }
 
@@ -27,6 +27,6 @@ class CreateCity extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('city');
+        Schema::dropIfExists('social');
     }
 }
