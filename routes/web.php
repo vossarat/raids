@@ -9,7 +9,12 @@ return view('layouts.template');
 });*/
 
 Route::get('/','IndexController@index');
+
 Route::resource('index','IndexController');
+
+Route::resource('region','RegionController');
+
+Route::post('excel','ExcelController@index')->name('excel');
 
 Route::prefix('setup')->group(
 	function ()

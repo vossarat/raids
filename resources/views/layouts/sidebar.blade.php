@@ -10,8 +10,8 @@
 		</a>
 	</li>
 	<li>
-		<a href="#"><i class="fa fa-search fa-5x"></i>
-			<p>Поиск</p>
+		<a href="{{ route('region.index') }}"><i class="fa fa-search fa-5x"></i>
+			<p>МО</p>
 		</a>
 	</li>
 	<li>

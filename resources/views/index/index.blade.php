@@ -3,12 +3,24 @@
 @section('content')
 <h1 class="page-header">Регистр</h1>
 
-<form action="{{ route('index.create') }}">
-	<div class="form-group">
-		<button type="submit" class="btn btn-primary">
-			<i class="fa fa-plus"></i> Добавить карту</button>
-	</div>
-</form>
+<div class="form-group">
+	<form action="{{ route('index.create') }}">
+
+			<button type="submit" class="btn btn-primary">
+				<i class="fa fa-plus"></i> Добавить карту
+			</button>
+
+	</form>
+</div>
+
+<div class="form-group">
+	<form method="post" action="{{ route('excel') }}">
+		{{ csrf_field() }}
+			<button type="submit" class="btn btn-primary">
+				<i class="fa fa-save"></i>
+			</button>
+	</form>
+</div>
 
 @if(Session::has('message'))
 <div class="alert alert-success">
@@ -23,7 +35,7 @@
 	<thead>
 		<tr>
 			<th>#</th>
-			<th>Фамилия ИО</th>
+			<th>Фамилия И.О.</th>
 			<th>Пол</th>
 			<th>Дата рождения</th>
 			<th>Местонахождение</th>

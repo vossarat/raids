@@ -17,6 +17,10 @@ class CreateRegion extends Migration
             $table->unsignedSmallInteger('id')->nullable();
 			$table->primary('id');
 			$table->string('name', 50)->nullable();
+			//$table->boolean('is_parent')->nullable()->default(0);
+			$table->integer('parent_id')->default(0);
+			$table->unsignedTinyInteger('city_id')->default(0);
+			$table->integer('weight')->default(1);
         });
     }
 
