@@ -5,7 +5,7 @@
 		</a>
 	</li>
 	<li>
-		<a href="setup"><i class="fa fa-cog fa-5x"></i>
+		<a href="/setup"><i class="fa fa-cog fa-5x"></i>
 			<p>Setup</p>
 		</a>
 	</li>
@@ -20,7 +20,7 @@
 		</a>
 	</li>
 	<li>
-		<a href="phpmyadmin"><i class="fa fa-table fa-5x"></i>
+		<a href="/phpmyadmin"><i class="fa fa-table fa-5x"></i>
 			<p>phpmyadmin</p>
 		</a>
 	</li>
