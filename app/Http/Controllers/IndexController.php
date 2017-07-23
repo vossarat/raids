@@ -35,15 +35,15 @@ class IndexController extends Controller
 	public function index(Request $request)
 	{
 		$patients = $this->register; //экземпляр класса Register
- 		$filterSex = null; // фильтра по полу пока нет
-		$filterCity = null;// фильтра по городу пока нет
+ 		$filterCode = null; // фильтра по коду пока нет
+		$filterDiagnose = null;// фильтра по диагнозу пока нет
 		$filterRegion = null;// фильтра по региону/ЛПУ пока нет
 		
 		if( $request->has('filter') ) {	// проверка на кнопку фильтра		
-			$filterSex = $request->get('sex');
-			$filterCity = $request->get('city');
+			$filterCode = $request->get('code');
+			$filterDiagnose = $request->get('diagnose');
 			$filterRegion = $request->get('region');
-			$patients = $this->register->sexId($filterSex)->cityId($filterCity)->regionId($filterRegion); //фильтруем данные
+			$patients = $this->register->codeId($filterCode)->diagnoseId($filterDiagnose)->regionId($filterRegion); //фильтруем данные
 		}
  		
 		return view('index.index')->with([
@@ -54,8 +54,8 @@ class IndexController extends Controller
 				'referenceDiagnose' => $this->diagnose->all(),
 				'referenceCode' => $this->code->orderBy('weight')->get(),				
 				
-				'filterSex' => $filterSex,
-				'filterCity' => $filterCity,
+				'filterCode' => $filterCode,
+				'filterDiagnose' => $filterDiagnose,
 				'filterRegion' => $filterRegion,
 			]);
 	}

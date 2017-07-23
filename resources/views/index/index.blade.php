@@ -29,7 +29,7 @@
 			<th>Фамилия И.О.</th>
 			<th>Пол</th>
 			<th>Дата рождения</th>
-			<th>Местонахождение</th>
+			<th>Код</th>
 			<th>Дата</th>
 			<th>Регион</th>
 			<th colspan="2">Действие</th>
@@ -42,7 +42,7 @@
 			<td>{{ $patient->surname.' '.mb_substr($patient->name,0,1,"UTF-8").mb_substr($patient->middlename,0,1,"UTF-8") }}</td>
 			<td>{{ $patient->sex[0]->name }}</td>
 			<td>{{ date('d-m-Y',strtotime($patient->birthday)) }}</td>
-			<td>{{ $patient->city[0]->name }}</td>
+			<td>{{ $patient->code[0]->code }}</td>
 			<td>{{ $patient->grantdate->format('d-m-Y') }}</td>
 			<td>{{ $patient->region[0]->name }}</td>
 			<td>     
@@ -66,8 +66,8 @@
 </table>
 
 {{ $viewdata->appends([
-						'sex' => isset($filterSex) ? $filterSex :'',
-						'city' => isset($filterCity) ? $filterCity:'',
+						'code' => isset($filterCode) ? $filterCode :'',
+						'diagnose' => isset($filterDiagnose) ? $filterDiagnose:'',
 						'region' => isset($filterRegion) ? $filterRegion:'',
 						'filter' => 'filter',
 						])->links() }}

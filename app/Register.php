@@ -45,20 +45,30 @@ class Register extends Model
 		return $this->hasMany('App\Region', 'id', 'region_id');
 	}
 	
-	public function ScopeSexId($query, $sex)
+	public function code()
 	{
-		if (!is_null($sex))
+		return $this->hasMany('App\Code', 'id', 'code_id');
+	}
+	
+	public function diagnose()
+	{
+		return $this->hasMany('App\Diagnose', 'id', 'diagnose_id');
+	}
+	
+	public function ScopeCodeId($query, $code)
+	{
+		if (!is_null($code))
 		{
-			return $query->where('sex_id', $sex);
+			return $query->where('code_id', $code);
 		}
 
 	}
 
-	public function ScopeCityId($query, $city)
+	public function ScopeDiagnoseId($query, $diagnose)
 	{
-		if (!is_null($city))
+		if (!is_null($diagnose))
 		{
-			return $query->where('city_id', $city);
+			return $query->where('diagnose_id', $diagnose);
 		}
 	}
 	

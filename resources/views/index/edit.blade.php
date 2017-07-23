@@ -6,7 +6,7 @@
 <div class="panel panel-default">
 	<div class="panel-heading"> {{-- заголовок окна --}}
 		Редактирование информации по пациенту
-		<a href="{{ route('index.index') }}" class="close" data-dismiss="alert" aria-hidden="true">&times;</a> {{-- х закрыть --}}
+		<a href="{{ url()->previous() }}" class="close" data-dismiss="alert" aria-hidden="true">&times;</a> {{-- х закрыть --}}
 	</div>
 
 	<div class="panel-body">

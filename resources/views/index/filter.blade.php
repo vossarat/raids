@@ -1,43 +1,32 @@
 {{-- Форма для фильтрации данных --}}
 <form class="form-inline" role="form" method="GET" action="">
 	
-	{{--  <select class="form-control" name="year">
-		<option value="">Пол</option>
-		@foreach($referenceYear as $itemYear)
-			@if($referenceYear == $itemYear->id)
-				<option selected value="{{ $itemYear->id }}">{{ $itemYear->name }}</option>
-			@else
-				<option value="{{ $itemYear->id }}">{{ $itemYear->name }}</option>
-			@endif
-		@endforeach
-	</select>--}}
-	
-	<select class="form-control" name="sex">
-		<option value="">Пол</option>
-		@foreach($referenceSex as $itemSex)
-			@if(isset($filterSex))
-				@if($filterSex == $itemSex->id)
-					<option selected value="{{ $itemSex->id }}">{{ $itemSex->name }}</option>
+	<select class="form-control" name="code">
+		<option value="">Код</option>
+		@foreach($referenceCode as $item)
+			@if(isset($filterCode))
+				@if($filterCode == $item->id)
+					<option selected value="{{ $item->id }}">{{ $item->code }}</option>
 				@else
-					<option value="{{ $itemSex->id }}">{{ $itemSex->name }}</option>
+					<option value="{{ $item->id }}">{{ $item->code }}</option>
 				@endif
 			@else
-					<option value="{{ $itemSex->id }}">{{ $itemSex->name }}</option>
+					<option value="{{ $item->id }}">{{ $item->code }}</option>
 			@endif
 		@endforeach
 	</select>
 
-	<select class="form-control" name="city">
-		<option value="">Местонахождение</option>
-		@foreach($referenceCity as $itemCity)
-			@if(isset($filterCity))
-				@if($filterCity == $itemCity->id)
-					<option selected value="{{ $itemCity->id }}">{{ $itemCity->name }}</option>
+	<select class="form-control" name="diagnose">
+		<option value="">Диагноз</option>
+		@foreach($referenceDiagnose as $item)
+			@if(isset($filterDiagnose))
+				@if($filterDiagnose == $item->id)
+					<option selected value="{{ $item->id }}">{{ $item->name }}</option>
 				@else
-					<option value="{{ $itemCity->id }}">{{ $itemCity->name }}</option>
+					<option value="{{ $item->id }}">{{ $item->name }}</option>
 				@endif
 			@else
-					<option value="{{ $itemCity->id }}">{{ $itemCity->name }}</option>
+					<option value="{{ $item->id }}">{{ $item->name }}</option>
 			@endif
 		@endforeach
 	</select>
