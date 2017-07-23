@@ -35,10 +35,7 @@ class Setup extends Model
 			Artisan::call('db:seed', array('--class' => 'ReferenceSexSeeder'));
 			Artisan::call('db:seed', array('--class' => 'ReferenceYearSeeder'));
 			Artisan::call('db:seed', array('--class' => 'ReferenceDiagnoseSeeder'));
-			Artisan::call('db:seed', array('--class' => 'ReferenceFamilySeeder'));
-			Artisan::call('db:seed', array('--class' => 'ReferenceNationalSeeder'));
-			Artisan::call('db:seed', array('--class' => 'ReferenceSocialSeeder'));
-			Artisan::call('db:seed', array('--class' => 'ReferenceIfaSeeder'));
+			Artisan::call('db:seed', array('--class' => 'ReferenceCodeSeeder'));
 			
 			return 'Справочники созданы';
 		}
@@ -69,12 +66,12 @@ class Setup extends Model
 				'sity'    =>$record->sity,
 				'kod'     =>$record->kod,
 				'diagnoz' =>$record->diagnoz,
-				'family'  =>$record->family,
-				'national'=>$record->national,
-				'social'  =>$record->social,
-				'ifa'     =>$record->ifa,
+				//'family'  =>$record->family,
+				//'national'=>$record->national,
+				//'social'  =>$record->social,
+				//'ifa'     =>$record->ifa,
 				'date'    =>$record->date,
-				'second'  =>$record->second,
+				//'second'  =>$record->second,
 			);
 		}
 		return $mybase;
@@ -84,19 +81,20 @@ class Setup extends Model
 	{
 		
 		foreach ($appendData as $register) {
+			if ( !$register['nomer'] 
+					or !$register['diagnoz'] 
+					or !$register['date'] 
+					or !$register['region']
+			) { continue; } // сброс итерации для пустой записи
 			Register::create([
 					'number'=>$register['nomer'],
-					'FIO'=>$register['name'],
+					'surname'=>$register['name'],
 					'sex_id'=>$register['sex'],
 					'birthday'=>date("Y-m-d", strtotime($register['date']) - $register['age']*365*24*60*60),
 					'region_id'=>$register['region'],
 					'city_id'=>$register['sity']+1, //+1 для того чтоб в справочник city добавить код 0-не указано
-					'code'=>$register['kod'],
+					'code_id'=>$register['kod'],
 					'diagnose_id'=>$register['diagnoz'],
-					'family_id'=>$register['family']-1, //-1 для того чтоб в справочник family установить код "нет данных" на 0
-					'national_id'=>$register['national'],
-					'social_id'=>$register['social'],
-					'ifa_id'=>$register['ifa'],
 					'grantdate'=> date('Y-m-d',strtotime($register['date'])),
 				]);
 		}

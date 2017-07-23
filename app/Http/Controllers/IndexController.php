@@ -9,24 +9,19 @@ use App\City;
 use App\Sex;
 use App\Region;
 use App\Diagnose;
-use App\Family;
-use App\National;
-use App\Social;
-use App\Ifa;
+use App\Code;
+
 
 class IndexController extends Controller
 {
-	public function __construct(Register $register, City $city, Sex $sex, Region $region , Diagnose $diagnose, Family $family, National $national, Social $social, Ifa $ifa)
+	public function __construct(Register $register, City $city, Sex $sex, Region $region , Diagnose $diagnose, Code $code)
 	{
 		$this->register = $register;
 		$this->city = $city;
 		$this->sex = $sex;
 		$this->region = $region;
 		$this->diagnose = $diagnose;
-		$this->family = $family;
-		$this->national = $national;
-		$this->social = $social;
-		$this->ifa = $ifa;
+		$this->code = $code;
 	}
 
 	/**
@@ -52,15 +47,13 @@ class IndexController extends Controller
 		}
  		
 		return view('index.index')->with([
-				'viewdata' => $patients->orderBy('grantdate','desc')->paginate(10),
+				'viewdata' => $patients->orderBy('grantdate','desc')->orderBy('number','desc')->paginate(10),
 				'referenceCity' => $this->city->all(),
 				'referenceSex' => $this->sex->all(),
 				'referenceRegion' => $this->region->all(),
 				'referenceDiagnose' => $this->diagnose->all(),
-				'referenceFamily' => $this->family->all(),
-				'referenceNational' => $this->national->all(),
-				'referenceSocial' => $this->social->all(),
-				'referenceIfa' => $this->ifa->all(),
+				'referenceCode' => $this->code->orderBy('weight')->get(),				
+				
 				'filterSex' => $filterSex,
 				'filterCity' => $filterCity,
 				'filterRegion' => $filterRegion,
@@ -79,10 +72,8 @@ class IndexController extends Controller
 				'referenceCity' => $this->city->all(),		
 				'referenceRegion' => $this->region->all(),		
 				'referenceDiagnose' => $this->diagnose->all(),
-				'referenceFamily' => $this->family->all(),
-				'referenceNational' => $this->national->all(),
-				'referenceSocial' => $this->social->all(),
-				'referenceIfa' => $this->ifa->all(),		
+				'referenceCode' => $this->code->orderBy('weight')->get(),
+				'newNumber' => $this->register->newNumber()->number + 1,
 			]);
 	}
 
@@ -94,6 +85,7 @@ class IndexController extends Controller
 	*/
 	public function store(RegisterRequest $request)
 	{
+		//dd($request->modifyRequest());
 		Register::create($request->modifyRequest());
 		return redirect(route('index.index'))->with('message','Пациент добавлен');
 	}
@@ -117,16 +109,15 @@ class IndexController extends Controller
 	*/
 	public function edit($id)
 	{
+		$patient = $this->register->find($id);
 		return view('index.edit')->with([
 				'referenceSex' => $this->sex->all(),		
 				'referenceCity' => $this->city->all(),
 				'referenceRegion' => $this->region->all(),		
 				'referenceDiagnose' => $this->diagnose->all(),
-				'referenceFamily' => $this->family->all(),
-				'referenceNational' => $this->national->all(),
-				'referenceSocial' => $this->social->all(),
-				'referenceIfa' => $this->ifa->all(),		
-				'viewdata' => $this->register->find($id),		
+				'referenceCode' => $this->code->orderBy('weight')->get(),
+				'viewdata' => $patient,
+				'newNumber' => $patient->number,		
 			]);
 	}
 
@@ -139,11 +130,13 @@ class IndexController extends Controller
 	*/
 	public function update(RegisterRequest $request, $id)
 	{
-		$patient=$this->register->find($id);	
+		$patient=$this->register->find($id);
+		
+		//dd($request->modifyRequest());	
 		
 		$patient->update($request->modifyRequest());
 		$patient->save();
-		return redirect(route('index.index'))->with('message',"Информация по пациенту $patient->FIO изменена");
+		return redirect(route('index.index'))->with('message',"Информация по пациенту $patient->surname изменена");
 	}
 
 	/**

@@ -22,8 +22,6 @@ class RegionController extends Controller
      */
     public function index()
     {
-    	//$mo=$this->region->find(107);
-    	//dd($mo->city->name);
         $viewdata = $this->region->all();
         return view('region.index')->with([
 				'viewdata' => $viewdata,				

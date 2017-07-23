@@ -1,0 +1,15 @@
+tr > th {
+    border: 1px solid black;
+}
+
+tr td {
+    border: 1px solid black;
+}
+
+.noborder {
+    border: 0;
+}
+
+.center {
+	text-align: center;
+}

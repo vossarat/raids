@@ -13,15 +13,6 @@
 	</form>
 </div>
 
-<div class="form-group">
-	<form method="post" action="{{ route('excel') }}">
-		{{ csrf_field() }}
-			<button type="submit" class="btn btn-primary">
-				<i class="fa fa-save"></i>
-			</button>
-	</form>
-</div>
-
 @if(Session::has('message'))
 <div class="alert alert-success">
 	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -48,7 +39,7 @@
 		@foreach($viewdata as $patient)
 		<tr>
 			<td>{{ $patient->number }}</td>
-			<td>{{ $patient->FIO }}</td>
+			<td>{{ $patient->surname.' '.mb_substr($patient->name,0,1,"UTF-8").mb_substr($patient->middlename,0,1,"UTF-8") }}</td>
 			<td>{{ $patient->sex[0]->name }}</td>
 			<td>{{ date('d-m-Y',strtotime($patient->birthday)) }}</td>
 			<td>{{ $patient->city[0]->name }}</td>

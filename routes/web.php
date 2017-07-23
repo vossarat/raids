@@ -14,8 +14,16 @@ Route::resource('index','IndexController');
 
 Route::resource('region','RegionController');
 
+Route::resource('code','CodeController');
+
 Route::post('excel','ExcelController@index')->name('excel');
 
+Route::prefix('reports')->group(
+	function ()
+	{
+		Route::any('/form4', 'ReportsController@form4');
+	});
+	
 Route::prefix('setup')->group(
 	function ()
 	{

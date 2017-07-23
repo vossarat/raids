@@ -1,12 +1,16 @@
 .navbar {
 	height : 52px;
     border-radius: 0;
-    background-color: #438EB9 !important;;
+    background-color: #438EB9 !important;
     border-color: #438EB9 !important;;
-    /*background-color: #E7FEDB;
-    border-color: #E7FEDB;*/
     color: black !important;
 }
 	.navbar a {
-		color: black !important;
-	} 	
+		color: #FFF !important;
+		font-weight: bold;
+	}
+
+.dropdown-menu {
+    background-color: #438EB9 !important;
+    
+} 	

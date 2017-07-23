@@ -27,9 +27,9 @@ class RegisterRequest extends FormRequest
     {
         return [
             'number' => 'required',            
-            'FIO' => 'required',
+            'surname' => 'required',
             'birthday' => 'required',
-            'code' => 'required',
+            'code_id' => 'required',
             //'sex_id' => 'accepted',
             //'grantdate' => 'required',
             //'city_id' => 'accepted',

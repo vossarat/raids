@@ -17,17 +17,16 @@ class Register extends Model
     
 	protected $fillable = [
 		'number',
-		'FIO',
+		'IIN',
+		'surname',
+		'name',
+		'middlename',
 		'sex_id',
 		'birthday',
 		'region_id',
 		'city_id',
-		'code',
+		'code_id',
 		'diagnose_id',
-		'family_id',
-		'national_id',
-		'social_id',
-		'ifa_id',
 		'grantdate',
 	];
 	
@@ -69,6 +68,16 @@ class Register extends Model
 		{
 			return $query->where('region_id', $region);
 		}
+	}
+	
+	public function ScopeNewNumber($query)
+	{
+		return $query->orderBy('id','desc')->first();
+	}
+	
+	public function ScopeNewform4($query)
+	{
+		return $query;
 	}
 	
 }

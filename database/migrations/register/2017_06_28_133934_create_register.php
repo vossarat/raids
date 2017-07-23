@@ -18,7 +18,10 @@ class CreateRegister extends Migration
 			
 			$table->unsignedMediumInteger('number')->nullable();
 			
-			$table->string('FIO', 50)->nullable();
+			$table->string('IIN', 12)->nullable();
+			$table->string('surname', 50)->nullable();
+			$table->string('name', 50)->nullable();
+			$table->string('middlename', 50)->nullable();
 			
 			$table->unsignedTinyInteger('sex_id')->nullable();
 			$table->foreign('sex_id')->references('id')->on('sex');
@@ -31,18 +34,11 @@ class CreateRegister extends Migration
 			$table->unsignedTinyInteger('city_id')->nullable();
 			$table->foreign('city_id')->references('id')->on('city');
 			
-			$table->string('code', 3)->nullable();
+			$table->unsignedTinyInteger('code_id')->nullable();
+			$table->foreign('code_id')->references('id')->on('code');
 			
 			$table->unsignedSmallInteger('diagnose_id')->nullable();
 			$table->foreign('diagnose_id')->references('id')->on('diagnose');
-			
-			$table->unsignedTinyInteger('family_id')->nullable();
-			
-			$table->unsignedTinyInteger('national_id')->nullable();
-			
-			$table->unsignedTinyInteger('social_id')->nullable();
-			
-			$table->unsignedTinyInteger('ifa_id')->nullable();
 			
 			$table->date('grantdate')->nullable();
 			

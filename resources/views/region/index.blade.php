@@ -21,7 +21,7 @@
 @endif
 
 
-<table id="indexTable" class="table table-condensed table-striped table-scroll">
+<table class="table table-condensed table-striped table-scroll">
 	<thead>
 		<tr>
 			<th class="col-sm-3">Наименование МО</th>

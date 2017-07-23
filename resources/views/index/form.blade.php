@@ -4,7 +4,7 @@
 		<label for="number" class="col-md-2 control-label">Регистрационный номер</label>
 		
 		<div class="col-md-3">
-			<input id="number" type="text" class="form-control" name="number" value="{{$viewdata->number or old('number') }}">
+			<input id="number" type="text" class="form-control" name="number" value="{{$newNumber or old('number') }}">
 			@if ($errors->has('number'))
 			<span class="help-block">
 				<strong>
@@ -17,24 +17,54 @@
 	</div>
 </div> {{-- end number field --}}
 
-<div class="form-group">
-<div class="{{ $errors->has('FIO') ? ' has-error' : '' }}"> {{-- FIO field --}}
-	
-	<label for="FIO" class="col-md-2 control-label">Пациент</label>
+<div class="form-group">{{-- IIN field --}}
+	<div class="{{ $errors->has('IIN') ? ' has-error' : '' }}">		
+		
+		<label for="IIN" class="col-md-2 control-label">ИИН</label>
+		
+		<div class="col-md-3">
+			<input id="IIN" type="text" class="form-control" name="IIN" value="{{$viewdata->IIN or old('myfield') }}">
+			@if ($errors->has('IIN'))
+			<span class="help-block">
+				<strong>
+					{{ $errors->first('IIN') }}
+				</strong>
+			</span>
+			@endif
+		</div>
+		
+	</div>
+</div> {{-- end IIN field --}}
 
-	<div class="col-md-4">
-		<input id="FIO" type="text" class="form-control" name="FIO" value="{{ $viewdata->FIO or old('FIO') }}">
-		@if ($errors->has('FIO'))
-		<span class="help-block">
-			<strong>
-				{{ $errors->first('FIO') }}
-			</strong>
-		</span>
-		@endif
+<div class="form-group">{{-- FIO field --}}
+	<div class="{{ $errors->has('surname') ? ' has-error' : '' }}"> 
+		
+		<label for="surname" class="col-md-2 control-label">Фамилия</label>
+
+		<div class="col-md-3">
+			<input id="surname" type="text" class="form-control" name="surname" value="{{ $viewdata->surname or old('surname') }}">
+			@if ($errors->has('surname'))
+			<span class="help-block">
+				<strong>
+					{{ $errors->first('surname') }}
+				</strong>
+			</span>
+			@endif
+		</div>
+		
 	</div>
 	
-	</div> {{-- end FIO field --}}
-</div> 	
+	<label for="name" class="col-md-1 control-label">Имя</label>
+	<div class="col-md-2">
+		<input id="name" type="text" class="form-control" name="name" value="{{ $viewdata->name or old('name') }}">
+	</div>
+	
+	<label for="middlename" class="col-md-1 control-label">Отчество</label>
+	<div class="col-md-2">
+		<input id="middlename" type="text" class="form-control" name="middlename" value="{{ $viewdata->middlename or old('middlename') }}">
+	</div>
+	 
+</div> 	{{-- end FIO field --}}
 
 <div class="form-group">
 	<div class="{{ $errors->has('birthday') ? ' has-error' : '' }}"> {{-- birthday field --}}
@@ -55,21 +85,30 @@
 </div>
 
 <div class="form-group">
-	<div class="{{ $errors->has('code') ? ' has-error' : '' }}"> {{-- code field --}}
+	<div class="{{ $errors->has('code_id') ? ' has-error' : '' }}"> {{-- code field --}}
 		
-		<label for="code" class="col-md-2 control-label">Код</label>
+		<label for="code_id" class="col-md-2 control-label">Код</label>		
+		
+		<div class="col-md-3">
+		<select class="form-control" name="code_id">		
+			@foreach($referenceCode as $item)
+				@if(isset($viewdata))
+					<option {{ $viewdata->code_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->code.'-'.$item->name }}</option>
+				@else
+					<option value="{{ $item->id }}">{{ $item->code.'-'.$item->name }}</option>
+				@endif
+			@endforeach			
+		</select>
 
-		<div class="col-md-1">
-			<input id="code" type="text" class="form-control" name="code" value="{{ $viewdata->code or old('code') }}">
-			@if ($errors->has('code'))
-			<span class="help-block">
-				<strong>
-					{{ $errors->first('code') }}
-				</strong>
-			</span>
-			@endif
+		@if ($errors->has('code_id'))
+		<span class="help-block">
+			<strong>
+				{{ $errors->first('code_id') }}
+			</strong>
+		</span>
+		@endif
 		</div>
-	</div> {{-- end code field --}}
+	</div>{{-- end code field --}}
 </div>	
 
 <div class="form-group">
@@ -105,7 +144,7 @@
 		<label for="grantdate" class="col-md-2 control-label">Дата обследования</label>		
 		
 		<div class="col-md-2">
-		<input id="grantdate" type="text" class="form-control" name="grantdate1" value="{{ isset($viewdata->birthday) ? date('d-m-Y', strtotime($viewdata->grantdate)) : date('d-m-Y') }}">
+		<input id="grantdate" type="text" class="form-control" name="grantdate" value="{{ isset($viewdata->birthday) ? date('d-m-Y', strtotime($viewdata->grantdate)) : date('d-m-Y') }}">
 			@if ($errors->has('grantdate'))
 			<span class="help-block">
 				<strong>
@@ -198,110 +237,7 @@
 	</div>{{-- end diagnose field --}}
 </div>
 
-<div class="form-group">
-	<div class="{{ $errors->has('family_id') ? ' has-error' : '' }}"> {{-- family field --}}
-		
-		<label for="family_id" class="col-md-2 control-label">Семейное положение</label>		
-		
-		<div class="col-md-3">
-		<select class="form-control" name="family_id">		
-			@foreach($referenceFamily as $item)
-				@if(isset($viewdata))
-					<option {{ $viewdata->family_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
-				@else
-					<option value="{{ $item->id }}">{{ $item->name }}</option>
-				@endif
-			@endforeach			
-		</select>
-
-		@if ($errors->has('family_id'))
-		<span class="help-block">
-			<strong>
-				{{ $errors->first('family_id') }}
-			</strong>
-		</span>
-		@endif
-		</div>
-	</div>{{-- end family field --}}
-</div>
-
-<div class="form-group">
-	<div class="{{ $errors->has('national_id') ? ' has-error' : '' }}"> {{-- national field --}}
-		
-		<label for="national_id" class="col-md-2 control-label">Национальность</label>		
-		
-		<div class="col-md-3">
-		<select class="form-control" name="national_id">		
-			@foreach($referenceNational as $item)
-				@if(isset($viewdata))
-					<option {{ $viewdata->national_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
-				@else
-					<option value="{{ $item->id }}">{{ $item->name }}</option>
-				@endif
-			@endforeach			
-		</select>
-
-		@if ($errors->has('national_id'))
-		<span class="help-block">
-			<strong>
-				{{ $errors->first('national_id') }}
-			</strong>
-		</span>
-		@endif
-		</div>
-	</div>{{-- end national field --}}
-</div>		
-
-<div class="form-group">
-	<div class="{{ $errors->has('social_id') ? ' has-error' : '' }}"> {{-- social field --}}
-		
-		<label for="social_id" class="col-md-2 control-label">Социальное положение</label>		
-		
-		<div class="col-md-3">
-		<select class="form-control" name="social_id">		
-			@foreach($referenceSocial as $item)
-				@if(isset($viewdata))
-					<option {{ $viewdata->social_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
-				@else
-					<option value="{{ $item->id }}">{{ $item->name }}</option>
-				@endif
-			@endforeach			
-		</select>
-
-		@if ($errors->has('social_id'))
-		<span class="help-block">
-			<strong>
-				{{ $errors->first('social_id') }}
-			</strong>
-		</span>
-		@endif
-		</div>
-	</div>{{-- end social field --}}
-</div>
-
-<div class="form-group">
-	<div class="{{ $errors->has('ifa_id') ? ' has-error' : '' }}"> {{-- ifa field --}}
-		
-		<label for="ifa_id" class="col-md-2 control-label">ИФА</label>		
-		
-		<div class="col-md-3">
-		<select class="form-control" name="ifa_id">		
-			@foreach($referenceIfa as $item)
-				@if(isset($viewdata))
-					<option {{ $viewdata->ifa_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
-				@else
-					<option value="{{ $item->id }}">{{ $item->name }}</option>
-				@endif
-			@endforeach			
-		</select>
-
-		@if ($errors->has('ifa_id'))
-		<span class="help-block">
-			<strong>
-				{{ $errors->first('ifa_id') }}
-			</strong>
-		</span>
-		@endif
-		</div>
-	</div>{{-- end ifa field --}}
-</div>			
+@push('scripts')
+<script src="{{ asset('js/jquery.maskedinput.js') }}"></script>
+<script src="{{ asset('js/maskinputdate.js') }}"></script>
+@endpush
