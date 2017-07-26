@@ -1,6 +1,10 @@
 {{-- Форма для фильтрации данных --}}
 <form class="form-inline" role="form" method="GET" action="">
 	
+	<input id="number" type="text" class="form-control" name="number" value="{{$filterNumber or ''}}" placeholder="Номер">
+		
+	<input id="surname" type="text" class="form-control" name="surname" value="{{$filterSurname}}" placeholder="Фамилия">
+	
 	<select class="form-control" name="code">
 		<option value="">Код</option>
 		@foreach($referenceCode as $item)

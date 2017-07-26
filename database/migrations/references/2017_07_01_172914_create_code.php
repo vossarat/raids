@@ -18,6 +18,7 @@ class CreateCode extends Migration
             $table->primary('id');
             $table->string('code', 6)->nullable();			
 			$table->string('name', 255)->nullable();
+			$table->unsignedTinyInteger('parent_id')->default(1);
 			$table->integer('weight')->default(1);
         });
     }

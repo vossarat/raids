@@ -32,6 +32,33 @@
 	</div>
 </div> {{-- end name field --}}
 
+<div class="form-group"> {{-- parent field --}}
+	<div class="{{ $errors->has('parent_id') ? ' has-error' : '' }}"> 
+		
+		<label for="parent_id" class="col-md-4 control-label">Основной код</label>		
+		
+		<div class="col-md-6">
+		<select class="form-control" name="parent_id">		
+			@foreach($referenceCode as $item)
+				@if(isset($viewdata))
+					<option {{ $viewdata->parent_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
+				@else
+					<option value="{{ $item->id }}">{{ $item->name }}</option>
+				@endif
+			@endforeach			
+		</select>
+
+		@if ($errors->has('parent_id'))
+		<span class="help-block">
+			<strong>
+				{{ $errors->first('parent_id') }}
+			</strong>
+		</span>
+		@endif
+		</div>
+	</div>
+</div>{{-- end parent field --}}
+
 
 <div class="form-group"> {{-- weight field --}}
 	<div class="{{ $errors->has('weight') ? ' has-error' : '' }}"> 

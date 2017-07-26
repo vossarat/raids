@@ -85,6 +85,16 @@ class Register extends Model
 		return $query->orderBy('id','desc')->first();
 	}
 	
+	public function ScopeSurname($query, $surname)
+	{
+		return $query->where('surname', 'like', "%$surname%" );
+	}
+	
+	public function ScopeNumber($query, $number)
+	{
+		return $query->where('number', 'like', "%$number%" );
+	}
+	
 	public function ScopeNewform4($query)
 	{
 		return $query;

@@ -21,7 +21,8 @@ Route::post('excel','ExcelController@index')->name('excel');
 Route::prefix('reports')->group(
 	function ()
 	{
-		Route::any('/form4', 'ReportsController@form4');
+		//Route::any('/form4', 'ReportsController@form4');
+		Route::any('/form4', 'Reports\Form4Controller@index');
 	});
 	
 Route::prefix('setup')->group(

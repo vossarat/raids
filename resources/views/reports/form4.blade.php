@@ -18,15 +18,15 @@
 				<div class="form-group"> 
 				
 						{{-- startdate field --}}
-						<label for="startdate" class="col-md-3 col-md-offset-1 control-label">Отчетный период с</label>
-						<div class="col-md-2">
+						<label for="startdate" class="col-md-4 control-label">Отчетный период с</label>
+						<div class="col-md-3">
 							<input id="startdate" type="text" class="form-control" name="startdate" value="">
 						</div>
 						{{-- end startdate field --}}
 						
 						{{-- enddate field --}}
 						<label for="enddate" class="col-md-1 control-label">по</label>
-						<div class="col-md-2">
+						<div class="col-md-3">
 							<input id="enddate" type="text" class="form-control" name="enddate" value="">
 						</div>
 						{{-- end enddate field --}}
@@ -35,7 +35,7 @@
 				
 				<div class="form-group">{{-- region/lpu field --}}						
 					<label for="region" class="col-md-3 col-md-offset-1 control-label">ЛПУ</label>							
-					<div class="col-md-5">
+					<div class="col-md-7">
 						<select class="form-control" name="region">									
 							@foreach($referenceRegion as $item)
 								@if($item->id == 0)

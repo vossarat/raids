@@ -66,6 +66,8 @@
 </table>
 
 {{ $viewdata->appends([
+						'number' => isset($filterNumber) ? $filterNumber :'',
+						'surname' => isset($filterSurname) ? $filterSurname :'',
 						'code' => isset($filterCode) ? $filterCode :'',
 						'diagnose' => isset($filterDiagnose) ? $filterDiagnose:'',
 						'region' => isset($filterRegion) ? $filterRegion:'',

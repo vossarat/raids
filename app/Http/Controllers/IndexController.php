@@ -38,12 +38,21 @@ class IndexController extends Controller
  		$filterCode = null; // фильтра по коду пока нет
 		$filterDiagnose = null;// фильтра по диагнозу пока нет
 		$filterRegion = null;// фильтра по региону/ЛПУ пока нет
+		$filterSurname = null;// фильтра по ФИО пока нет
+		$filterNumber = null;// фильтра по рег.номеру пока нет
 		
 		if( $request->has('filter') ) {	// проверка на кнопку фильтра		
 			$filterCode = $request->get('code');
 			$filterDiagnose = $request->get('diagnose');
 			$filterRegion = $request->get('region');
-			$patients = $this->register->codeId($filterCode)->diagnoseId($filterDiagnose)->regionId($filterRegion); //фильтруем данные
+			$filterSurname = $request->get('surname');
+			$filterNumber = $request->get('number');
+			$patients = $this->register
+							->surname($filterSurname)
+							->number($filterNumber)
+							->codeId($filterCode)
+							->diagnoseId($filterDiagnose)
+							->regionId($filterRegion); //фильтруем данные
 		}
  		
 		return view('index.index')->with([
@@ -57,6 +66,8 @@ class IndexController extends Controller
 				'filterCode' => $filterCode,
 				'filterDiagnose' => $filterDiagnose,
 				'filterRegion' => $filterRegion,
+				'filterSurname' => $filterSurname,
+				'filterNumber' => $filterNumber,
 			]);
 	}
 	

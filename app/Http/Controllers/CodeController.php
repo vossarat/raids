@@ -32,7 +32,9 @@ class CodeController extends Controller
      */
     public function create()
     {
-        return view('code.create');
+        return view('code.create')->with([
+				'referenceCode' => $this->code->all(),
+			]);
     }
 
     /**
@@ -67,6 +69,7 @@ class CodeController extends Controller
     public function edit($id)
     {
         return view('code.edit')->with([
+        		'referenceCode' => $this->code->orderBy('weight')->orderBy('code')->get(),
 				'viewdata' => $this->code->find($id),
 			]);
     }

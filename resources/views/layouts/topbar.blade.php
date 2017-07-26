@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
-        <!-- Название компании и кнопка, которая отображается для мобильных устройств группируются для лучшего отображения при сужении -->
+
         <div class="navbar-header">
             <a class="navbar-brand" href="#">...</a>
         </div>

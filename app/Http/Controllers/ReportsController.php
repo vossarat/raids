@@ -7,43 +7,46 @@ use Excel;
 
 class ReportsController extends Controller
 {
-	public function __construct(Request $request)
-	{
-		$this->request = $request;
-	}
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
 
-	public function form4()
-	{
+    public function form4()
+    {
+        if($this->request->isMethod('get')){
+            return view('reports.form4')->with('referenceRegion', \App\Region::orderBy('id')->get());
+        }
 		
-		if ($this->request->isMethod('post')) {
-			
-			$startdate = date("Y-m-d",strtotime($this->request->startdate));
-	        $enddate = date("Y-m-d",strtotime($this->request->enddate));
-	        $region = $this->request->region;
-	
-			if($this->request->output == 'toScreen'){
-				return view('reports.form4_excel')->with([
-					'viewdata' => \App\Report::form4($startdate, $enddate, $region),
-					'startdate' => $this->request->startdate, 
-					'enddate' => $this->request->enddate,
-					'region' => $region ? \App\Region::find($region)->name : ' По всем регионам',
-					]);
-			}
-			Excel::create('Форма4',	function($excel) use ($startdate, $enddate, $region)
-				{
-					$excel->sheet('Форма4', function($sheet) use ($startdate, $enddate, $region)
-						{
-							$sheet->loadView('reports.form4_excel')
-								->withViewdata(\App\Report::form4($startdate, $enddate, $region))
-								->withStartdate($this->request->startdate)
-								->withEnddate($this->request->enddate)
-								->withRegion($region ? \App\Region::find($region)->name : ' По всем регионам')->setPageMargin(1);
-						});
-				})->export('xls');
-		} 
-		else {
-			return view('reports.form4')->with('referenceRegion', \App\Region::orderBy('id')->get());
-		}
+		$startdate = date("Y-m-d",strtotime($this->request->startdate));
+		$enddate = date("Y-m-d",strtotime($this->request->enddate));
+		$regionId = $this->request->region;        
+        
+        $attributes = array(
+            'filename' => 'Форма4',
+            'view' => 'reports.form4_output',
+            'viewdata' => \App\Report::form4($startdate, $enddate, $regionId),
+            'startdate' => $startdate,
+            'enddate' =>  $enddate,
+            'region' => $regionId ? \App\Region::find($regionId)->name : ' По всем регионам',
+        );
 
-	}
+        if($this->request->output == 'toScreen'){
+            return view( $attributes['view'] )->with($attributes);
+        }
+        $this->reportToExcel($attributes);
+    }
+
+    public function reportToExcel($attributes)
+    {
+        Excel::create($attributes['filename'],
+            function($excel) use ($attributes)
+            {
+                $excel->sheet($attributes['filename'],
+                    function($sheet) use ($attributes)
+                    {
+                        $sheet->loadView($attributes['view'], $attributes)->setPageMargin(1);
+                    });
+            })->export('xls');
+    }
 }

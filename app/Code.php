@@ -14,8 +14,14 @@ class Code extends Model
 		'id',
 		'code',
 		'name',
+		'parent_id',
 		'weight',
 	];
+	
+	public function parent()
+	{
+		return $this->hasOne('App\Code', 'id', 'parent_id');
+	}
 	
 	public function ScopeMaxId($query)
 	{
