@@ -12,11 +12,10 @@ class Form4Controller extends Controller
         $this->request = $request;
     }
 	
-    public function index() 
+    public function getForm4() 
     {
-    	dump(__METHOD__);
 		if($this->request->isMethod('get')){
-            return view('reports.form4')->with('referenceRegion', \App\Region::orderBy('id')->get());
+            return view('reports.form4.sex.form')->with('referenceRegion', \App\Region::orderBy('id')->get());
         }
 		
 		$startdate = date("Y-m-d",strtotime($this->request->startdate));
@@ -25,16 +24,20 @@ class Form4Controller extends Controller
         
         $attributes = array(
             'filename' => 'Форма4',
-            'view' => 'reports.form4_output',
-            'viewdata' => \App\Reports\Form4::index($startdate, $enddate, $regionId),
+            'view' => 'reports.form4.sex.output',
+            'viewdata' => \App\Reports\Form4::getForm4($startdate, $enddate, $regionId),
             'startdate' => $startdate,
             'enddate' =>  $enddate,
+            'referenceCode' =>  \App\Code::all(),
             'region' => $regionId ? \App\Region::find($regionId)->name : ' По всем регионам',
         );
-
+        
         if($this->request->output == 'toScreen'){
+        	$attributes['layout'] = 'layouts.template';
             return view( $attributes['view'] )->with($attributes);
         }
-        App\ReportExcel::reportToExcel($attributes);
+        
+        $attributes['layout'] = 'layouts.excel';
+        \App\ReportExcel::reportToExcel($attributes);
 	}
 }

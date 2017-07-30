@@ -1,13 +1,12 @@
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
 
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">...</a>
-        </div>
-
         <!-- Группируем ссылки, формы, выпадающее меню и прочие элементы -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
+                <li>
+                    <img src="/images/sidasz.png" class="img-responsive"> {{-- logotip --}}
+                </li>
                 <li> <!--class="active"-->
                     <a href="/">Ввод данных</a>
                 </li>
@@ -39,24 +38,42 @@
                         <b class="caret"></b> <!--Стрелка вниз-->
                     </a>
                     <ul class="dropdown-menu">
-                        <li>
-                            <a href="/reports/form4">Форма 4</a>
-                        </li>
+                        
+                        <li class="dropdown-submenu"> {{-- Submenu Форма 4--}}
+                            <a tabindex="-1" href="#">Форма 4</a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a tabindex="-1" href="/reports/form4">По полу</a>
+                                </li>
+                                <li>
+                                    <a tabindex="-1" href="/reports/form4">В сравнении</a>
+                                </li>
+                            </ul>
+                        </li> {{-- End submenu Форма 4--}}
+                        
                         <li class="divider"></li> <!--Separator-->
-                        <li>
-                            <a href="#">Другой отчет</a>
-                        </li>
+                        
+                        <li><a href="#">Другой отчет</a></li>
                     </ul> {{-- Конец отчеты--}}
-                </li>
+                </li>                
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Пользователь
-                        <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    	{{ Auth::user()->name }}<b class="caret"></b>
+                    </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#">Выход</a>
+                            <a href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Выход
+                                        </a>
+
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            {{ csrf_field() }}
+                                        </form>
                         </li>
 
                     </ul>

@@ -30,7 +30,7 @@
 							<input id="enddate" type="text" class="form-control" name="enddate" value="">
 						</div>
 						{{-- end enddate field --}}
-						
+
 				</div>
 				
 				<div class="form-group">{{-- region/lpu field --}}						
@@ -81,5 +81,4 @@
 <script src="{{ asset('js/jquery.maskedinput.js') }}"></script>
 <script src="{{ asset('js/maskinputdate.js') }}"></script>
 @endpush
-
 @endsection

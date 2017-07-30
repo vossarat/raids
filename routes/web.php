@@ -8,31 +8,40 @@ return view('welcome');
 return view('layouts.template');
 });*/
 
-Route::get('/','IndexController@index');
+// Auth Routes...
+/*Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');*/
+// End Auth Routes...
 
-Route::resource('index','IndexController');
+Auth::routes();
 
-Route::resource('region','RegionController');
+Route::group(['middleware'=>'auth'],
+    function()
+    {
+        Route::get('/','IndexController@index');
 
-Route::resource('code','CodeController');
+        Route::resource('index','IndexController');
 
-Route::post('excel','ExcelController@index')->name('excel');
+        Route::resource('region','RegionController');
 
-Route::prefix('reports')->group(
-	function ()
-	{
-		//Route::any('/form4', 'ReportsController@form4');
-		Route::any('/form4', 'Reports\Form4Controller@index');
-	});
-	
-Route::prefix('setup')->group(
-	function ()
-	{
-		Route::get('/', 'SetupController@index')->name('setup');
-		Route::post('/append', 'SetupController@appendTable')->name('append');
-		Route::post('/make/register', 'SetupController@makeTableRegister');
-		Route::post('/make/reference', 'SetupController@makeReferences');
-	});
+        Route::resource('code','CodeController');
 
+//        Route::post('excel','ExcelController@index')->name('excel');
 
-//Auth::routes();
+        Route::prefix('reports')->group(
+            function ()
+            {
+                Route::any('/form4', 'Reports\Form4Controller@getForm4');
+            });
+
+        Route::prefix('setup')->group(
+            function ()
+            {
+                Route::get('/', 'SetupController@index')->name('setup');
+                Route::post('/append', 'SetupController@appendTable')->name('append');
+                Route::post('/make/register', 'SetupController@makeTableRegister');
+                Route::post('/make/reference', 'SetupController@makeReferences');
+            });
+
+    });

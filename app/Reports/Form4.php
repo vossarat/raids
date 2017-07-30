@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\DB;
 
 class Form4 extends Model
 {
-    public static function index($startdate, $enddate, $region) 
+    public static function getForm4($startdate, $enddate, $region) 
     {
-		$data = DB::table('register')
+		$dataGroupParent = DB::table('register')
         ->leftJoin('code', 'register.code_id', '=', 'code.id')
         ->select('code.parent_id as codeid',
             DB::raw('SUM(CASE WHEN (register.sex_id = 2) THEN 1 ELSE 0 END) as mens'),
@@ -29,7 +29,7 @@ class Form4 extends Model
         ->groupBy('code.parent_id');
 
 
-        $dataAll = DB::table('register')
+        $viewdata = DB::table('register')
         ->leftJoin('code', 'register.code_id', '=', 'code.id')
         ->select('code.id as codeid',
             DB::raw('SUM(CASE WHEN (register.sex_id = 2) THEN 1 ELSE 0 END) as mens'),
@@ -48,19 +48,9 @@ class Form4 extends Model
                 }
             })
         ->groupBy('code.id')
-        ->union($data)
+        ->union($dataGroupParent)
         ->get();
-        
-        //dd($dataAll);
-        
-        $mydata = DB::table('code')->get();
-        
-        foreach($mydata as $item) {
-        	foreach($dataAll as $value){
-				if($item->id == $value->codeid) dump($item->code.' - '.$value->total );
-			}
-		}
-		
-		dd('-');
+
+		return $viewdata;
 	}
 }
