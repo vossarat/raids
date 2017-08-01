@@ -33,10 +33,9 @@ class Setup extends Model
 			Artisan::call('db:seed', array('--class' => 'ReferenceRegionSeeder'));
 			Artisan::call('db:seed', array('--class' => 'ReferenceCitySeeder'));
 			Artisan::call('db:seed', array('--class' => 'ReferenceSexSeeder'));
-			Artisan::call('db:seed', array('--class' => 'ReferenceYearSeeder'));
 			Artisan::call('db:seed', array('--class' => 'ReferenceDiagnoseSeeder'));
 			Artisan::call('db:seed', array('--class' => 'ReferenceCodeSeeder'));
-			
+			Artisan::call('db:seed', array('--class' => 'ReferenceUsersSeeder'));			
 			return 'Справочники созданы';
 		}
 	}

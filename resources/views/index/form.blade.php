@@ -237,6 +237,27 @@
 	</div>{{-- end diagnose field --}}
 </div>
 
+<div class="form-group">
+	<div class="col-md-3 col-md-offset-2">
+		<div class="checkbox">
+			<label>
+				@if(isset($viewdata))
+				<input type="checkbox" name="imunnoblot" value="1" {{ $viewdata->imunnoblot ? 'checked' : '' }}> Имунноблот
+				@else
+				<input type="checkbox" name="imunnoblot" value="1" {{ old('imunnoblot') ? 'checked' : '' }}> Имунноблот
+				@endif
+			</label>
+		</div>
+	</div>
+</div>
+
+<div class="form-group">{{-- User field --}}
+		<label for="user_id" class="col-md-2 control-label">Зарегистрировал</label>
+		<div class="col-md-3">
+			<input type="text" class="form-control" value="{{ $viewdata->user->name or Auth::user()->name }}" readonly>
+		</div> {{-- user_id добавляется через RegisterRequest --}}
+</div> {{-- end User field --}}
+
 @push('scripts')
 <script src="{{ asset('js/jquery.maskedinput.js') }}"></script>
 <script src="{{ asset('js/maskinputdate.js') }}"></script>

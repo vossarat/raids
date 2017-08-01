@@ -61,14 +61,14 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    	{{ Auth::user()->name }}<b class="caret"></b>
+                    	   <i class="fa fa-user"></i>{{-- {{ Auth::user()->name  }}<b class="caret"></b>--}}
                     </a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Выход
+                                            <i class="fa fa-sign-out"></i> Выход
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

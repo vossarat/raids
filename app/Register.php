@@ -27,6 +27,8 @@ class Register extends Model
 		'city_id',
 		'code_id',
 		'diagnose_id',
+		'user_id',
+		'imunnoblot',
 		'grantdate',
 	];
 	
@@ -48,6 +50,11 @@ class Register extends Model
 	public function code()
 	{
 		return $this->hasMany('App\Code', 'id', 'code_id');
+	}
+	
+	public function user()
+	{
+		return $this->hasOne('App\User', 'id', 'user_id');
 	}
 	
 	public function diagnose()

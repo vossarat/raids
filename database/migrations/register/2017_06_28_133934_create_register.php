@@ -42,6 +42,11 @@ class CreateRegister extends Migration
 			
 			$table->date('grantdate')->nullable();
 			
+			$table->boolean('immunoblot')->default(0);
+			
+			$table->integer('user_id')->default(1);
+			//$table->foreign('user_id')->references('id')->on('users');
+			
 			$table->timestamps();
         });
     }

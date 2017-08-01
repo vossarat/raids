@@ -58,6 +58,7 @@ class RegisterRequest extends FormRequest
 		$requestGrantdate  = $this->request->get('grantdate');       
         $this->merge(array( 'birthday' => date('Y-m-d', strtotime($requestBirthday)) ));
         $this->merge(array( 'grantdate' => date('Y-m-d', strtotime($requestGrantdate)) ));
+        $this->merge(array( 'user_id' => Auth::user()->id ));
 
         return $this->request->all();
     }

@@ -121,6 +121,7 @@ class IndexController extends Controller
 	public function edit($id)
 	{
 		$patient = $this->register->find($id);
+
 		return view('index.edit')->with([
 				'referenceSex' => $this->sex->all(),		
 				'referenceCity' => $this->city->all(),

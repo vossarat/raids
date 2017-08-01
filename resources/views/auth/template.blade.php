@@ -21,10 +21,7 @@
 		<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">	
 		
 		<!-- additional CSS -->
-		<link rel="stylesheet" href="{{ asset('css/template.css') }}" />
-		<link rel="stylesheet" href="{{ asset('css/sidebar.css') }}" /> 
-		<link rel="stylesheet" href="{{ asset('css/topbar.css') }}" /> 
-		
+		<link rel="stylesheet" href="{{ asset('css/fullscreen.css') }}" />
 		
 		<!-- Include Some Style -->
 		@stack('css')
@@ -43,8 +40,7 @@
 		================================================== -->
 		<script src="{{ asset('js/jquery.min.js') }}"></script>
 		<script src="{{ asset('js/bootstrap.min.js') }}"></script>
-		@stack('scripts')
-		
+		@stack('scripts')		
 		
 	</body>
 </html>

@@ -19,4 +19,11 @@
 			<p>PHPMyAdmin</p>
 		</a>
 	</li>
+	
+	<li>
+		<a href="#">
+			<i class="fa fa-file-archive-o fa-5x"></i>
+			<p>Архив</p>
+		</a>
+	</li>
 </ul>
