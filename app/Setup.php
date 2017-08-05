@@ -9,44 +9,29 @@ use Illuminate\Support\Facades\Schema;
 use XBase\Table;
 use App\Register;
 use Artisan;
+use DB;
 
 class Setup extends Model
 {
-	public function makeTableRegister()
+	public function makeTable()
 	{
-		if ($this->isTable('register'))	{
+		if ( DB::table('migrations')->count() )	{
 			Artisan::call('migrate:rollback', array('--path' => 'database/migrations/register'));
-			return 'Таблица для регистра удалена';
-		} else {
-			Artisan::call('migrate', array('--path' => 'database/migrations/register'));
-			return 'Таблица для регистра создана';
-		}
-	}
-	
-	public function makeReferences()
-	{
-		if ($this->isTable('city'))	{
-			Artisan::call('migrate:rollback', array('--path' => 'database/migrations/references'));
-			return 'Справочники удалены';
+			Artisan::call('migrate:rollback', array('--path' => 'database/migrations/references'));			
+			return 'Таблицы удалены';
 		} else {
 			Artisan::call('migrate', array('--path' => 'database/migrations/references'));			
 			Artisan::call('db:seed', array('--class' => 'ReferenceRegionSeeder'));
 			Artisan::call('db:seed', array('--class' => 'ReferenceCitySeeder'));
 			Artisan::call('db:seed', array('--class' => 'ReferenceSexSeeder'));
 			Artisan::call('db:seed', array('--class' => 'ReferenceDiagnoseSeeder'));
-			Artisan::call('db:seed', array('--class' => 'ReferenceCodeSeeder'));
-			Artisan::call('db:seed', array('--class' => 'ReferenceUsersSeeder'));			
-			return 'Справочники созданы';
+			//Artisan::call('db:seed', array('--class' => 'ReferenceCodeSeeder'));
+			Artisan::call('db:seed', array('--class' => 'ReferenceUsersSeeder'));
+			
+			Artisan::call('migrate', array('--path' => 'database/migrations/register'));
+						
+			return 'Таблицы созданы';
 		}
-	}
-
-	public function isTable($table)
-	{
-		$isTable = false;
-		if (Schema::hasTable($table)) {
-			$isTable = true;
-		}
-		return $isTable;
 	}
 
 	public function appendData($pathToDBF)

@@ -5,7 +5,8 @@ return view('welcome');
 });*/
 
 /*Route::get('/', function () {
-	return view('layouts.template');
+	$file = file_get_contents( asset('dump/code.sql') ); 
+	dd($file);
 });*/
 
 Route::prefix('setup')->group(
@@ -13,8 +14,7 @@ Route::prefix('setup')->group(
             {
                 Route::get('/', 'SetupController@index')->name('setup');
                 Route::post('/append', 'SetupController@appendTable')->name('append');
-                Route::post('/make/register', 'SetupController@makeTableRegister');
-                Route::post('/make/reference', 'SetupController@makeReferences');
+                Route::post('/make/table', 'SetupController@makeTable');
             });
 
 Auth::routes();
@@ -33,6 +33,7 @@ Route::group(['middleware'=>'auth'],
         Route::prefix('reports')->group(
             function ()
             {
-                Route::any('/form4', 'Reports\Form4Controller@getForm4');
+                Route::any('/form4bygender', 'Reports\Form4Controller@getForm4ByGender'); //форма4 по полу
+                Route::any('/form4bycomparison', 'Reports\Form4Controller@getForm4ByComparison'); //форма 4 в сравнении с прошлым периодом
             });
     });

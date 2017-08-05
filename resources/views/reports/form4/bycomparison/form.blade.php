@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="page-header">Отчеты. Форма №4</h1>
+<h1 class="page-header">Отчеты. Форма №4 в сравнении с прошлым периодом</h1>
 
 <div class="col-md-8 col-md-offset-2">
 	<div class="panel panel-default">
@@ -12,7 +12,7 @@
 		</div>
 
 		<div class="panel-body">
-			<form class="form-horizontal" role="form" method="POST" action="/reports/form4">
+			<form class="form-horizontal" role="form" method="POST" action="/reports/form4bycomparison">
 				{{ csrf_field() }}			
 				
 				<div class="form-group"> 

@@ -13,14 +13,15 @@ class CreateCode extends Migration
      */
     public function up()
     {
-        Schema::create('code', function (Blueprint $table) {
+        /*Schema::create('code', function (Blueprint $table) {
             $table->unsignedTinyInteger('id')->nullable();
             $table->primary('id');
             $table->string('code', 6)->nullable();			
 			$table->string('name', 255)->nullable();
 			$table->unsignedTinyInteger('parent_id')->default(1);
 			$table->integer('weight')->default(1);
-        });
+        });*/
+        DB::unprepared( file_get_contents( asset('dump/code.sql') ) );
     }
 
     /**

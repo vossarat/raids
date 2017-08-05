@@ -13,3 +13,9 @@ tr td {
 .center {
 	text-align: center;
 }
+
+
+.cell-namecode {
+	width: 70px;
+	word-break: break-all;
+}

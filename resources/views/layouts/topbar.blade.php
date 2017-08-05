@@ -43,10 +43,10 @@
                             <a tabindex="-1" href="#">Форма 4</a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a tabindex="-1" href="/reports/form4">По полу</a>
+                                    <a tabindex="-1" href="/reports/form4bygender">По полу</a>
                                 </li>
                                 <li>
-                                    <a tabindex="-1" href="/reports/form4">В сравнении</a>
+                                    <a tabindex="-1" href="/reports/form4bycomparison">В сравнении</a>
                                 </li>
                             </ul>
                         </li> {{-- End submenu Форма 4--}}

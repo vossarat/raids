@@ -23,4 +23,8 @@
 	margin-left: -15px;
 }*/
 
-div.col-md-1
+ul > li > a > p {
+	font-size:10px;
+	margin-left: auto;
+	margin-right: auto;
+}

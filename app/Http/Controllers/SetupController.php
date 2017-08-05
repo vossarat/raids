@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Setup;
+use DB;
 
 class SetupController extends Controller
 {
@@ -15,24 +16,17 @@ class SetupController extends Controller
 
 	public function index()
 	{
-		$isTableRegister = $this->setup->isTable('register');
-		$isReferences = $this->setup->isTable('city');
+		$isHasTable = DB::table('migrations')->count();
+		//$isHasTable = $this->setup->isTable('city');
 		return view('setup.index')->with([
-				'isTableRegister'=>$isTableRegister,
-				'isReferences'=>$isReferences,
+				'isHasTable'=>$isHasTable,
 			]);
 	}
 
-	public function makeTableRegister()
+	public function makeTable()
 	{
-		$message = $this->setup->makeTableRegister();
-		return redirect()->back()->withErrors(['create'=>$message]);
-	}
-	
-	public function makeReferences()
-	{
-		$message = $this->setup->makeReferences();		
-		return redirect()->back()->withErrors(['reference'=>$message]);
+		$message = $this->setup->makeTable();		
+		return redirect()->back()->withErrors(['message'=>$message]);
 	}
 
 	public function appendTable()
