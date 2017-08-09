@@ -98,7 +98,7 @@ class IndexController extends Controller
 	{
 		//dd($request->modifyRequest());
 		Register::create($request->modifyRequest());
-		return redirect(route('index.index'))->with('message','Пациент добавлен');
+		return redirect(route('index.create'))->with('message',"Информация по пациенту $request->surname добавлена");
 	}
 
 	/**
