@@ -28,7 +28,7 @@ class Form4Controller extends Controller
             'viewdata' => \App\Reports\Form4::getForm4ByGender($startdate, $enddate, $regionId),
             'startdate' => $this->request->startdate,
             'enddate' =>  $this->request->enddate,
-            'referenceCode' =>  \App\Code::all(),
+            'referenceCode' =>  \App\Code::orderBy('weight')->get(),
             'region' => $regionId ? \App\Region::find($regionId)->name : ' По всем регионам',
         );
         
@@ -59,7 +59,7 @@ class Form4Controller extends Controller
             'viewdata' => \App\Reports\Form4::getForm4ByComparison($startdate, $enddate, $regionId),
             'startdate' => $this->request->startdate,
             'enddate' =>  $this->request->enddate,
-            'referenceCode' =>  \App\Code::all(),
+            'referenceCode' =>  \App\Code::orderBy('weight')->get(),
             'region' => $regionId ? \App\Region::find($regionId)->name : ' По всем регионам',
         );
         
