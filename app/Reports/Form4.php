@@ -51,7 +51,7 @@ class Form4 extends Model
         ->groupBy('code.id')
         ->union($dataGroupParent)
         ->get();
-
+       
 		return $viewdata;
 	}
 	

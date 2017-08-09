@@ -20,8 +20,8 @@ class Form4Controller extends Controller
 		
 		$startdate = date("Y-m-d",strtotime($this->request->startdate));
 		$enddate = date("Y-m-d",strtotime($this->request->enddate));
-		$regionId = $this->request->region;        
-        
+		$regionId = $this->request->region;
+		
         $attributes = array(
             'filename' => 'Форма4',
             'view' => 'reports.form4.bygender.output',

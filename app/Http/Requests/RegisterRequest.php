@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Register;
 use Carbon\Carbon;
+use Auth;
 
 class RegisterRequest extends FormRequest
 {
@@ -45,7 +46,9 @@ class RegisterRequest extends FormRequest
     
     public function messages(){
         return [
-            //'FIO.required' => 'Внесите ФИО пациента',
+            'number.required' => 'Номер не заполнен',
+            'surname.required' => 'Заполните фамилию пациента',
+            'birthday.required' => 'Заполните дату рождения',
             //'max' => 'Максимально количество символов :max',
             //'min' => 'Минимальное количество символов :min',
             //'unique' => 'Значение не уникально',

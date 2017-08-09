@@ -53,7 +53,7 @@
                         
                         <li class="divider"></li> <!--Separator-->
                         
-                        <li><a href="#">Другой отчет</a></li>
+                        <li><a href="/reports/countbyregion">Кол-во по МО</a></li>
                     </ul> {{-- Конец отчеты--}}
                 </li>                
             </ul>

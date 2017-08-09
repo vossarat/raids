@@ -24,21 +24,21 @@ class CreateRegister extends Migration
 			$table->string('middlename', 50)->nullable();
 			
 			$table->unsignedTinyInteger('sex_id')->nullable();
-			$table->foreign('sex_id')->references('id')->on('sex');
+			//$table->foreign('sex_id')->references('id')->on('sex');
 		
 			$table->date('birthday')->nullable();
 			
 			$table->unsignedSmallInteger('region_id')->nullable();
-			$table->foreign('region_id')->references('id')->on('region');
+			//$table->foreign('region_id')->references('id')->on('region');
 			
 			$table->unsignedTinyInteger('city_id')->nullable();
-			$table->foreign('city_id')->references('id')->on('city');
+			//$table->foreign('city_id')->references('id')->on('city');
 			
 			$table->unsignedTinyInteger('code_id')->nullable();
-			$table->foreign('code_id')->references('id')->on('code');
+			//$table->foreign('code_id')->references('id')->on('code');
 			
 			$table->unsignedSmallInteger('diagnose_id')->nullable();
-			$table->foreign('diagnose_id')->references('id')->on('diagnose');
+			//$table->foreign('diagnose_id')->references('id')->on('diagnose');
 			
 			$table->date('grantdate')->nullable();
 			

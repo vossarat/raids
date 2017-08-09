@@ -29,19 +29,19 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach($referenceCode as $refcode)			
+		@foreach($referenceCode as $refcode)
 			@foreach($viewdata as $data)				
 				@if($refcode->id == $data->codeid)
 				<tr>
 					<td>{{ $refcode->code.'-' }}</td>
-					<td>{{ $refcode->name }}</td>									
+					<td>{{ $refcode->name }}</td>		
 					<td>{{ $data->mens }}</td>
 					<td>{{ $data->womens }}</td>
 					<td>{{ $data->notspecified }}</td>
 					<td>{{ $data->total }}</td>
-				@endif						
-				</tr> 
-			@endforeach
+				</tr>	
+				@endif				
+			@endforeach			
 		@endforeach
 	</tbody>
 </table>

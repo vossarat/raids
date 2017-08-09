@@ -41,9 +41,9 @@
 		<select class="form-control" name="parent_id">		
 			@foreach($referenceCode as $item)
 				@if(isset($viewdata))
-					<option {{ $viewdata->parent_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
+					<option {{ $viewdata->parent_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->code }}</option>
 				@else
-					<option value="{{ $item->id }}">{{ $item->name }}</option>
+					<option value="{{ $item->id }}">{{ $item->code }}</option>
 				@endif
 			@endforeach			
 		</select>
