@@ -81,9 +81,9 @@ class IndexController extends Controller
 		return view('index.create')->with([
 				'referenceSex' => $this->sex->all(),		
 				'referenceCity' => $this->city->all(),		
-				'referenceRegion' => $this->region->all(),		
-				'referenceDiagnose' => $this->diagnose->all(),
-				'referenceCode' => $this->code->orderBy('weight')->get(),
+				'referenceRegion' => $this->region->orderBy('name')->get(),		
+				'referenceDiagnose' => $this->diagnose->orderBy('name')->get(),
+				'referenceCode' => $this->code->orderBy('name')->orderBy('weight')->get(),
 				'newNumber' => $this->register->newNumber()->number + 1,
 			]);
 	}

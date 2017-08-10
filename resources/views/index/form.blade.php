@@ -159,12 +159,12 @@
 		<label for="city_id" class="col-md-2 control-label">Место жительства</label>		
 		
 		<div class="col-md-2">
-		<select class="form-control" name="city_id">		
+		<select class="form-control" name="city_id" id="city_id">		
 			@foreach($referenceCity as $item)
 				@if(isset($viewdata))
-					<option {{ $viewdata->city_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
+					<option {{ $viewdata->city_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}" data-city="{{ $item->id }}>{{ $item->name }}</option>
 				@else
-					<option value="{{ $item->id }}">{{ $item->name }}</option>
+					<option value="{{ $item->id }}" data-city="{{ $item->id }}">{{ $item->name }}</option>
 				@endif
 			@endforeach			
 		</select>
@@ -184,12 +184,12 @@
 		<label for="region_id" class="col-md-1 control-label">ЛПУ</label>		
 		
 		<div class="col-md-2">
-		<select class="form-control" name="region_id">		
+		<select class="form-control" name="region_id" id="region_id">		
 			@foreach($referenceRegion as $item)
 				@if(isset($viewdata))
-					<option {{ $viewdata->region_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
+					<option {{ $viewdata->region_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}" data-city="{{ $item->city_id }}">{{ $item->name }}</option>
 				@else
-					<option value="{{ $item->id }}">{{ $item->name }}</option>
+					<option value="{{ $item->id }}" data-city="{{ $item->city_id }}">{{ $item->name }}</option>
 				@endif
 			@endforeach			
 		</select>
@@ -255,4 +255,5 @@
 @push('scripts')
 <script src="{{ asset('js/jquery.maskedinput.js') }}"></script>
 <script src="{{ asset('js/maskinputdate.js') }}"></script>
+<script src="{{ asset('js/index/filter_city_on_region.js') }}"></script>
 @endpush
