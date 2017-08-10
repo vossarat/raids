@@ -162,7 +162,7 @@
 		<select class="form-control" name="city_id" id="city_id">		
 			@foreach($referenceCity as $item)
 				@if(isset($viewdata))
-					<option {{ $viewdata->city_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}" data-city="{{ $item->id }}>{{ $item->name }}</option>
+					<option {{ $viewdata->city_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}" data-city="{{ $item->id }}">{{ $item->name }}</option>
 				@else
 					<option value="{{ $item->id }}" data-city="{{ $item->id }}">{{ $item->name }}</option>
 				@endif

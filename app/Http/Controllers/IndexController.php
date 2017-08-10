@@ -83,7 +83,7 @@ class IndexController extends Controller
 				'referenceCity' => $this->city->all(),		
 				'referenceRegion' => $this->region->orderBy('name')->get(),		
 				'referenceDiagnose' => $this->diagnose->orderBy('name')->get(),
-				'referenceCode' => $this->code->orderBy('name')->orderBy('weight')->get(),
+				'referenceCode' => $this->code->orderBy('weight')->get(),
 				'newNumber' => $this->register->newNumber()->number + 1,
 			]);
 	}
