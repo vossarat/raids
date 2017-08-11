@@ -96,7 +96,6 @@ class IndexController extends Controller
 	*/
 	public function store(RegisterRequest $request)
 	{
-		//dd($request->modifyRequest());
 		Register::create($request->modifyRequest());
 		return redirect(route('index.create'))->with('message',"Информация по пациенту $request->surname добавлена");
 	}
@@ -143,9 +142,6 @@ class IndexController extends Controller
 	public function update(RegisterRequest $request, $id)
 	{
 		$patient=$this->register->find($id);
-		
-		//dd($request->modifyRequest());	
-		
 		$patient->update($request->modifyRequest());
 		$patient->save();
 		return redirect(route('index.index'))->with('message',"Информация по пациенту $patient->surname изменена");
