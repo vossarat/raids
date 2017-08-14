@@ -10,7 +10,7 @@ use App\Sex;
 use App\Region;
 use App\Diagnose;
 use App\Code;
-
+use Session;
 
 class IndexController extends Controller
 {
@@ -30,39 +30,40 @@ class IndexController extends Controller
 	* Request проверяется на наличие данных по фильтрации
 	* если filter (кнопка фильтр была нажата), то данные фильтруются
 	*
-	* @return \Illuminate\Http\Response 
+	* @return \Illuminate\Http\Response
 	*/
 	public function index(Request $request)
 	{
 		$patients = $this->register; //экземпляр класса Register
- 		$filterCode = null; // фильтра по коду пока нет
+		$filterCode = null; // фильтра по коду пока нет
 		$filterDiagnose = null;// фильтра по диагнозу пока нет
-		$filterRegion = null;// фильтра по региону/ЛПУ пока нет
+		$filterRegion = null;// фильтра по региону / ЛПУ пока нет
 		$filterSurname = null;// фильтра по ФИО пока нет
 		$filterNumber = null;// фильтра по рег.номеру пока нет
-		
-		if( $request->has('filter') ) {	// проверка на кнопку фильтра		
+
+		if ( $request->has('filter') ) {
+			// проверка на кнопку фильтра
 			$filterCode = $request->get('code');
 			$filterDiagnose = $request->get('diagnose');
 			$filterRegion = $request->get('region');
 			$filterSurname = $request->get('surname');
 			$filterNumber = $request->get('number');
 			$patients = $this->register
-							->surname($filterSurname)
-							->number($filterNumber)
-							->codeId($filterCode)
-							->diagnoseId($filterDiagnose)
-							->regionId($filterRegion); //фильтруем данные
+			->surname($filterSurname)
+			->number($filterNumber)
+			->codeId($filterCode)
+			->diagnoseId($filterDiagnose)
+			->regionId($filterRegion); //фильтруем данные
 		}
- 		
+
 		return view('index.index')->with([
 				'viewdata' => $patients->orderBy('grantdate','desc')->orderBy('number','desc')->paginate(10),
 				'referenceCity' => $this->city->all(),
 				'referenceSex' => $this->sex->all(),
 				'referenceRegion' => $this->region->all(),
 				'referenceDiagnose' => $this->diagnose->all(),
-				'referenceCode' => $this->code->orderBy('weight')->get(),				
-				
+				'referenceCode' => $this->code->orderBy('weight')->get(),
+
 				'filterCode' => $filterCode,
 				'filterDiagnose' => $filterDiagnose,
 				'filterRegion' => $filterRegion,
@@ -70,7 +71,7 @@ class IndexController extends Controller
 				'filterNumber' => $filterNumber,
 			]);
 	}
-	
+
 	/**
 	* Show the form for creating a new resource.
 	*
@@ -78,13 +79,25 @@ class IndexController extends Controller
 	*/
 	public function create()
 	{
+		$viewdata = $this->register->find(0);
+		if ( Session::get('newOrCopy') ) {
+			$viewdata = $this->register->newNumber();
+			$viewdata->surname = NULL;
+			$viewdata->name = NULL;
+			$viewdata->middlename = NULL;
+			$viewdata->birthday = NULL;
+			$viewdata->IIN = NULL;
+			$viewdata->sex_id = NULL;
+		}
+
 		return view('index.create')->with([
-				'referenceSex' => $this->sex->all(),		
-				'referenceCity' => $this->city->all(),		
-				'referenceRegion' => $this->region->orderBy('name')->get(),		
+				'referenceSex' => $this->sex->all(),
+				'referenceCity' => $this->city->all(),
+				'referenceRegion' => $this->region->orderBy('name')->get(),
 				'referenceDiagnose' => $this->diagnose->orderBy('name')->get(),
 				'referenceCode' => $this->code->orderBy('weight')->get(),
 				'newNumber' => $this->register->newNumber()->number + 1,
+				'viewdata' =>  $viewdata,
 			]);
 	}
 
@@ -96,8 +109,12 @@ class IndexController extends Controller
 	*/
 	public function store(RegisterRequest $request)
 	{
+		//dd($request->all());
 		Register::create($request->modifyRequest());
-		return redirect(route('index.create'))->with('message',"Информация по пациенту $request->surname добавлена");
+		return redirect(route('index.create'))->with([
+				'message' => "Информация по пациенту $request->surname добавлена",
+				'newOrCopy' => $request->newOrCopy,
+			]);
 	}
 
 	/**
@@ -122,13 +139,13 @@ class IndexController extends Controller
 		$patient = $this->register->find($id);
 
 		return view('index.edit')->with([
-				'referenceSex' => $this->sex->all(),		
+				'referenceSex' => $this->sex->all(),
 				'referenceCity' => $this->city->all(),
-				'referenceRegion' => $this->region->all(),		
+				'referenceRegion' => $this->region->all(),
 				'referenceDiagnose' => $this->diagnose->all(),
 				'referenceCode' => $this->code->orderBy('weight')->get(),
 				'viewdata' => $patient,
-				'newNumber' => $patient->number,		
+				'newNumber' => $patient->number,
 			]);
 	}
 
@@ -141,7 +158,7 @@ class IndexController extends Controller
 	*/
 	public function update(RegisterRequest $request, $id)
 	{
-		$patient=$this->register->find($id);
+		$patient = $this->register->find($id);
 		$patient->update($request->modifyRequest());
 		$patient->save();
 		return redirect(route('index.index'))->with('message',"Информация по пациенту $patient->surname изменена");

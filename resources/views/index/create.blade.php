@@ -27,8 +27,14 @@
 
 				<div class="form-group">
 					<div class="col-md-3 col-md-offset-1">
-						<button type="submit" class="btn btn-primary">
+						<button type="submit" name="newOrCopy" class="btn btn-primary">
 							Сохранить
+						</button>
+					</div>
+					
+					<div class="col-md-3">
+						<button type="submit" name="newOrCopy" value="copy" class="btn btn-primary">
+							Сохранить с копированием
 						</button>
 					</div>
 				</div>
