@@ -116,7 +116,7 @@
 		<label for="grantdate" class="col-md-2 control-label">Дата обследования</label>		
 		
 		<div class="col-md-2">
-		<input id="grantdate" type="text" class="form-control" name="grantdate" value="{{ isset($viewdata->birthday) ? date('d-m-Y', strtotime($viewdata->grantdate)) : date('d-m-Y') }}">
+		<input id="grantdate" type="text" class="form-control" name="grantdate" value="{{ isset($viewdata->grantdate) ? date('d-m-Y', strtotime($viewdata->grantdate)) : date('d-m-Y') }}">
 			@if ($errors->has('grantdate'))
 			<span class="help-block">
 				<strong>
