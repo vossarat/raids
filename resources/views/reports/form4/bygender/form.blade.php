@@ -48,6 +48,27 @@
 					</div>
 				</div>{{-- end region/lpu field --}} 
 				
+				<div class="form-group">
+					<label for="radio" class="col-md-3 col-md-offset-1 control-label">Считать по:</label>
+					<div class="col-md-2">	
+						<label class="radio text-center">
+							<input type="radio" name="calcBy" value="2"> Городу
+						</label>
+					</div>
+
+					<div class="col-md-2">		
+						<label class="radio">
+							<input type="radio" name="calcBy" value="1"> Области
+						</label>
+					</div> 
+					
+					<div class="col-md-2">		
+						<label class="radio">
+							<input type="radio" name="calcBy" value="0" checked="checked"> Полный
+						</label>
+					</div> 
+				</div>
+				
 				
 				<div class="form-group">
 					<label for="radio" class="col-md-3 col-md-offset-1 control-label">Вывод на:</label>

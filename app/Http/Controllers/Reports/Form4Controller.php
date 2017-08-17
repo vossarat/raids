@@ -14,18 +14,20 @@ class Form4Controller extends Controller
 	
     public function getForm4ByGender() 
     {
+    	
 		if($this->request->isMethod('get')){
             return view('reports.form4.bygender.form')->with('referenceRegion', \App\Region::orderBy('id')->get());
         }
-		
+        
 		$startdate = date("Y-m-d",strtotime($this->request->startdate));
 		$enddate = date("Y-m-d",strtotime($this->request->enddate));
 		$regionId = $this->request->region;
-		
+		$calcBy = $this->request->calcBy;
+				
         $attributes = array(
             'filename' => 'Форма4',
             'view' => 'reports.form4.bygender.output',
-            'viewdata' => \App\Reports\Form4::getForm4ByGender($startdate, $enddate, $regionId),
+            'viewdata' => \App\Reports\Form4::getForm4ByGender($startdate, $enddate, $regionId, $calcBy),
             'startdate' => $this->request->startdate,
             'enddate' =>  $this->request->enddate,
             'referenceCode' =>  \App\Code::orderBy('weight')->get(),
