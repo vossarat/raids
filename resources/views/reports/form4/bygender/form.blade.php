@@ -49,22 +49,22 @@
 				</div>{{-- end region/lpu field --}} 
 				
 				<div class="form-group">
-					<label for="radio" class="col-md-3 col-md-offset-1 control-label">Считать по:</label>
+					<label for="radio" class="col-md-3 col-md-offset-1 control-label">Группа:</label>
 					<div class="col-md-2">	
 						<label class="radio text-center">
-							<input type="radio" name="calcBy" value="2"> Городу
+							<input type="radio" name="calcBy" value="2"> Город
 						</label>
 					</div>
 
 					<div class="col-md-2">		
 						<label class="radio">
-							<input type="radio" name="calcBy" value="1"> Области
+							<input type="radio" name="calcBy" value="1"> Область
 						</label>
 					</div> 
 					
 					<div class="col-md-2">		
 						<label class="radio">
-							<input type="radio" name="calcBy" value="0" checked="checked"> Полный
+							<input type="radio" name="calcBy" value="0" checked="checked"> Общая
 						</label>
 					</div> 
 				</div>

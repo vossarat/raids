@@ -32,6 +32,7 @@ class Form4Controller extends Controller
             'enddate' =>  $this->request->enddate,
             'referenceCode' =>  \App\Code::orderBy('weight')->get(),
             'region' => $regionId ? \App\Region::find($regionId)->name : ' По всем регионам',
+            'city' => $calcBy ? \App\City::find($calcBy)->name : ' Общий',
         );
         
         if($this->request->output == 'toScreen'){
