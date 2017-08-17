@@ -12,55 +12,47 @@ class Form4 extends Model{
 	{
 		$parent = DB::table('code')
 		->leftJoin('code as parent', 'parent.id', '=', 'code.parent_id')		
-		->select('code.id', 'code.name as codename', 'parent.id as parentid', 'parent.name as parentname')
 		->leftJoin('code as parent_parent', 'parent.parent_id', '=', 'parent_parent.id')
-		->select('code.id','parent.id as parentid', 'parent_parent.id as parent_parent_id')	
-		->get();		
-		
-		dd($parent);
-		
-		$newparent = DB::table('code')
-		->leftJoin($parent, $parent, '=', 'code.parent_id')
-		->get();
-		dd($newparent);
-		
-		
-		$dataGroupParent = DB::table('register')
-		->leftJoin('code', 'register.code_id', '=', 'code.id')
-		->leftJoin('code as parent', 'parent.id', '=', 'code.parent_id')
-		->select('register.code_id as codeid',
-			'code.parent_id as pid',
-			'parent.parent_id as ppid',
-			DB::raw('COUNT(*) as total')
-		)
+		->leftJoin('register', 'code.id', '=', 'register.code_id')
 		->whereBetween('register.grantdate', [$startdate, $enddate])
-		//->where('register.code_id', '=', 39)
-		->groupBy('codeid')
-		->get();
-		
-		dd($dataGroupParent);
-		
-
-		$viewdata = DB::table('register')
-		->leftJoin('code', 'register.code_id', '=', 'code.id')
-		->select('code.id as codeid',
-			DB::raw('SUM(CASE WHEN (register.sex_id = 2) AND code.id IN(1, 2, 3) THEN 1 ELSE 0 END) as mens'),
+		->select('parent_parent.id',
+			DB::raw('SUM(CASE WHEN (register.sex_id = 2) THEN 1 ELSE 0 END) as mens'),
 			DB::raw('SUM(CASE WHEN (register.sex_id = 3) THEN 1 ELSE 0 END) as womens'),
 			DB::raw('SUM(CASE WHEN (register.sex_id = 1) THEN 1 ELSE 0 END) as notspecified'),
 			DB::raw('COUNT(register.sex_id) as total')
 		)
-		->whereColumn('code_id', '<>', 'code.parent_id')
+		->groupBy('parent_parent.id');
+
+
+		$code = DB::table('code')
+		->leftJoin('code as parent', 'parent.id', '=', 'code.parent_id')		
+		->leftJoin('register', 'code.id', '=', 'register.code_id')
 		->whereBetween('register.grantdate', [$startdate, $enddate])
-		->where(
-			function($query) use ($region){
-				if($region){
-					$query->where('register.region_id', '=', $region);
-				}
-			})
+		//->whereColumn('parent.id', '<>', 'code.parent_id')
+		->select('parent.id as parentid',
+			DB::raw('SUM(CASE WHEN (register.sex_id = 2) THEN 1 ELSE 0 END) as mens'),
+			DB::raw('SUM(CASE WHEN (register.sex_id = 3) THEN 1 ELSE 0 END) as womens'),
+			DB::raw('SUM(CASE WHEN (register.sex_id = 1) THEN 1 ELSE 0 END) as notspecified'),
+			DB::raw('COUNT(register.sex_id) as total')
+		)
+		->groupBy('parent.id');
+
+		
+		$viewdata = DB::table('code')
+		->leftJoin('register', 'code.id', '=', 'register.code_id')
+		->whereBetween('register.grantdate', [$startdate, $enddate])
+		->whereColumn('register.code_id', '<>', 'code.parent_id')
+		->select('code.id',
+			DB::raw('SUM(CASE WHEN (register.sex_id = 2) THEN 1 ELSE 0 END) as mens'),
+			DB::raw('SUM(CASE WHEN (register.sex_id = 3) THEN 1 ELSE 0 END) as womens'),
+			DB::raw('SUM(CASE WHEN (register.sex_id = 1) THEN 1 ELSE 0 END) as notspecified'),
+			DB::raw('COUNT(register.sex_id) as total')
+		)
 		->groupBy('code.id')
-		->union($dataGroupParent)
+		->union($code)
+		->union($parent)
 		->get();
-       
+		
 		return $viewdata;
 	}
 	

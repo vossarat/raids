@@ -31,7 +31,7 @@
 	<tbody>
 		@foreach($referenceCode as $refcode)
 			@foreach($viewdata as $data)				
-				@if($refcode->id == $data->codeid)
+				@if($refcode->id == $data->id)
 				<tr>
 					<td>{{ $refcode->code.'-' }}</td>
 					<td>{{ $refcode->name }}</td>		
