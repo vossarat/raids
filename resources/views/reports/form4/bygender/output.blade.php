@@ -6,16 +6,16 @@
 	<a href="{{ url()->previous() }}" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
 	<table>
 		<tr>
-			<td colspan="6" class="noborder center">Отчет по 4-ой фоpме</td>
+			<td colspan="5" class="noborder center">Отчет по 4-ой фоpме</td>
 		</tr>
 		<tr>
-			<td colspan="6" class="noborder">Отчетный период: {{ $startdate.' - '.$enddate }}</td>
+			<td colspan="5" class="noborder">Отчетный период: {{ $startdate.' - '.$enddate }}</td>
 		</tr>
 		<tr>
-			<td colspan="6" class="noborder">Группа: {{ $city }}</td>
+			<td colspan="5" class="noborder">Группа: {{ $city }}</td>
 		</tr>
 		<tr>
-			<td colspan="6" class="noborder">Наименование региона (ЛПУ): {{ $region }}</td>
+			<td colspan="5" class="noborder">Наименование региона (ЛПУ): {{ $region }}</td>
 		</tr>
 	</table>
 </div>
@@ -24,7 +24,6 @@
 	<thead>
 		<tr>
 			<th>Код</th>
-			<th>Контингент обследуемых</th>
 			<th>Мужчин</th>
 			<th>Женщин</th>
 			<th>Не указан</th>
@@ -37,7 +36,6 @@
 				@if($refcode->id == $data->id)
 				<tr>
 					<td>{{ $refcode->code.'-' }}</td>
-					<td>{{ $refcode->name }}</td>		
 					<td>{{ $data->mens }}</td>
 					<td>{{ $data->womens }}</td>
 					<td>{{ $data->notspecified }}</td>
