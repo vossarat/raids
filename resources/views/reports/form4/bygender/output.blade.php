@@ -35,7 +35,7 @@
 			@foreach($viewdata as $data)				
 				@if($refcode->id == $data->id)
 				<tr>
-					<td>{{ $refcode->code.'-' }}</td>
+					<td>{{ $refcode->code.' ' }}</td>
 					<td>{{ $data->mens }}</td>
 					<td>{{ $data->womens }}</td>
 					<td>{{ $data->notspecified }}</td>

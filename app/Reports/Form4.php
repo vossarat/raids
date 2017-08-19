@@ -34,10 +34,10 @@ class Form4 extends Model{
 			DB::raw('COUNT(register.sex_id) as total')
 		)
 		->groupBy('parent_parent.id');
-
-
+		
 		$code = DB::table('code')
 		->leftJoin('code as parent', 'parent.id', '=', 'code.parent_id')		
+		->leftJoin('code as parent_parent', 'parent.parent_id', '=', 'parent_parent.id')
 		->leftJoin('register', 'code.id', '=', 'register.code_id')
 		->whereBetween('register.grantdate', [$startdate, $enddate])
 		->where(
@@ -52,7 +52,7 @@ class Form4 extends Model{
 					$query->where('register.city_id', '=', $calcBy);
 				}
 			})
-		->where('parent.id', '>', 1)
+		->whereColumn('parent.id', '<>', 'parent.parent_id')
 		->select('parent.id',
 			DB::raw('SUM(CASE WHEN (register.sex_id = 2) THEN 1 ELSE 0 END) as mens'),
 			DB::raw('SUM(CASE WHEN (register.sex_id = 3) THEN 1 ELSE 0 END) as womens'),
@@ -60,7 +60,6 @@ class Form4 extends Model{
 			DB::raw('COUNT(register.sex_id) as total')
 		)
 		->groupBy('parent.id');
-
 		
 		$viewdata = DB::table('code')
 		->leftJoin('register', 'code.id', '=', 'register.code_id')
@@ -90,6 +89,7 @@ class Form4 extends Model{
 		->get();
 		
 		return $viewdata;
+
 	}
 	
 	//Форма 4 в сравнении
@@ -97,39 +97,77 @@ class Form4 extends Model{
 	{ 
 		$startdateMinusYear = date("Y-m-d",strtotime($startdate . " -1 year"));
 		$enddateMinusYear = date("Y-m-d",strtotime($enddate . " -1 year"));
-  	
-		$dataGroupParent = DB::table('register')
-		->leftJoin('code', 'register.code_id', '=', 'code.id')
-		->select('code.parent_id as codeid',
-			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdateMinusYear' AND '$enddateMinusYear') THEN 1 ELSE 0 END) as lastcount"),
-			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdate' AND '$enddate') THEN 1 ELSE 0 END) as currentcount")
-		)
+		
+		$parent = DB::table('code')
+		->leftJoin('code as parent', 'parent.id', '=', 'code.parent_id')		
+		->leftJoin('code as parent_parent', 'parent.parent_id', '=', 'parent_parent.id')
+		->leftJoin('register', 'code.id', '=', 'register.code_id')		
 		->where(
 			function($query) use ($region){
 				if($region){
 					$query->where('register.region_id', '=', $region);
 				}
 			})
-		->groupBy('code.parent_id');
-
-	
-		$viewdata = DB::table('register')
-		->leftJoin('code', 'register.code_id', '=', 'code.id')
-		->select('code.id as codeid',
+/*		->where(
+			function($query) use ($calcBy){
+				if($calcBy){
+					$query->where('register.city_id', '=', $calcBy);
+				}
+			})*/
+		->select('parent_parent.id',
 			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdateMinusYear' AND '$enddateMinusYear') THEN 1 ELSE 0 END) as lastcount"),
 			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdate' AND '$enddate') THEN 1 ELSE 0 END) as currentcount")
 		)
-		->whereColumn('code_id', '<>', 'code.parent_id')
+		->groupBy('parent_parent.id');
+		
+		$code = DB::table('code')
+		->leftJoin('code as parent', 'parent.id', '=', 'code.parent_id')		
+		->leftJoin('code as parent_parent', 'parent.parent_id', '=', 'parent_parent.id')
+		->leftJoin('register', 'code.id', '=', 'register.code_id')
 		->where(
 			function($query) use ($region){
 				if($region){
 					$query->where('register.region_id', '=', $region);
 				}
 			})
+/*		->where(
+			function($query) use ($calcBy){
+				if($calcBy){
+					$query->where('register.city_id', '=', $calcBy);
+				}
+			})*/
+		->whereColumn('parent.id', '<>', 'parent.parent_id')
+		->select('parent.id',
+			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdateMinusYear' AND '$enddateMinusYear') THEN 1 ELSE 0 END) as lastcount"),
+			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdate' AND '$enddate') THEN 1 ELSE 0 END) as currentcount")
+		)
+		->groupBy('parent.id');
+		
+		$viewdata = DB::table('code')
+		->leftJoin('register', 'code.id', '=', 'register.code_id')
+		->where(
+			function($query) use ($region){
+				if($region){
+					$query->where('register.region_id', '=', $region);
+				}
+			})
+/*		->where(
+			function($query) use ($calcBy){
+				if($calcBy){
+					$query->where('register.city_id', '=', $calcBy);
+				}
+			})*/
+		->whereColumn('register.code_id', '<>', 'code.parent_id')
+		->select('code.id',
+			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdateMinusYear' AND '$enddateMinusYear') THEN 1 ELSE 0 END) as lastcount"),
+			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdate' AND '$enddate') THEN 1 ELSE 0 END) as currentcount")
+		)
 		->groupBy('code.id')
-		->union($dataGroupParent)
+		->union($code)
+		->union($parent)
 		->get();
 		
-		return $viewdata;
+		return $viewdata;  	
+		
 	}
 }

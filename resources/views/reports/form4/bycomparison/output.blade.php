@@ -29,9 +29,9 @@
 	<tbody>
 		@foreach($referenceCode as $refcode)			
 			@foreach($viewdata as $data)				
-				@if($refcode->id == $data->codeid)
+				@if($refcode->id == $data->id)
 				<tr>
-					<td>{{ $refcode->code.'-' }}</td>
+					<td>{{ $refcode->code.' ' }}</td>
 					<td class="cell-namecode">{{ $refcode->name }}</td>
 					<td>{{ $data->lastcount }}</td>
 					<td>{{ $data->currentcount }}</td>
