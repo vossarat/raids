@@ -50,21 +50,21 @@
 				
 				<div class="form-group">
 					<label for="radio" class="col-md-3 col-md-offset-1 control-label">Группа:</label>
-					<div class="col-md-2">	
+					<div class="col-md-3">	
 						<label class="radio text-center">
-							<input type="radio" name="calcBy" value="2"> Город
+							<input type="radio" name="calcBy" value="2"> Городские ЛПУ
 						</label>
 					</div>
 
 					<div class="col-md-2">		
 						<label class="radio">
-							<input type="radio" name="calcBy" value="1"> Область
+							<input type="radio" name="calcBy" value="1"> Районы
 						</label>
 					</div> 
 					
 					<div class="col-md-2">		
 						<label class="radio">
-							<input type="radio" name="calcBy" value="0" checked="checked"> Общая
+							<input type="radio" name="calcBy" value="0" checked="checked"> ИТОГО
 						</label>
 					</div> 
 				</div>

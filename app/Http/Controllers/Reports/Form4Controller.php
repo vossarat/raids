@@ -32,7 +32,7 @@ class Form4Controller extends Controller
             'enddate' =>  $this->request->enddate,
             'referenceCode' =>  \App\Code::orderBy('weight')->get(),
             'region' => $regionId ? \App\Region::find($regionId)->name : ' По всем регионам',
-            'city' => $calcBy ? \App\City::find($calcBy)->name : ' Общий',
+            'city' => $calcBy ? $this->addCityReportName(\App\City::find($calcBy)->name) : ' ИТОГО',
         );
         
         if($this->request->output == 'toScreen'){
@@ -73,5 +73,14 @@ class Form4Controller extends Controller
         
         $attributes['layout'] = 'layouts.report_to_excel';
         \App\ReportExcel::reportToExcel($attributes);
+	}
+	
+	public function addCityReportName($name)
+	{
+		$cityReportName = 'Городские ЛПУ';
+		if($name == 'область'){
+			$cityReportName = 'Районы';
+		}
+		return $cityReportName;
 	}
 }

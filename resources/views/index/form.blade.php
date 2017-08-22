@@ -131,8 +131,8 @@
 		
 		<label for="code_id" class="col-md-2 control-label">Код</label>		
 		
-		<div class="col-md-3">
-		<select class="form-control" name="code_id">		
+		<div class="col-md-5">
+		<select class="form-control" name="code_id" id="code_id">		
 			@foreach($referenceCode as $item)
 				@if(isset($viewdata))
 					<option {{ $viewdata->code_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->code.'-'.$item->name }}</option>
@@ -208,8 +208,8 @@
 		
 		<label for="diagnose_id" class="col-md-1 control-label">Диагноз</label>		
 		
-		<div class="col-md-2">
-		<select class="form-control" name="diagnose_id">		
+		<div class="col-md-3">
+		<select class="form-control" name="diagnose_id" id="diagnose_id">		
 			@foreach($referenceDiagnose as $item)
 				@if(isset($viewdata))
 					<option {{ $viewdata->diagnose_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
@@ -256,4 +256,8 @@
 <script src="{{ asset('js/jquery.maskedinput.js') }}"></script>
 <script src="{{ asset('js/maskinputdate.js') }}"></script>
 <script src="{{ asset('js/index/filter_city_on_region.js') }}"></script>
+@if(Auth::user()->id == 3)
+<script src="{{ asset('js/index/filter_code_on_diagnose.js') }}"></script>
+@endif
+
 @endpush

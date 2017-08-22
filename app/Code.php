@@ -27,5 +27,4 @@ class Code extends Model
 	{
 		return $query->max('id');
 	}
-	
 }
