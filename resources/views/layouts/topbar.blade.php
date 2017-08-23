@@ -54,6 +54,10 @@
                         <li class="divider"></li> <!--Separator-->
                         
                         <li><a href="/reports/countbyregion">Кол-во по МО</a></li>
+                        
+                         <li class="divider"></li> <!--Separator-->
+                        
+                        <li><a href="/reports/list">Список</a></li>
                     </ul> {{-- Конец отчеты--}}
                 </li>                
             </ul>

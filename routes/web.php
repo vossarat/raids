@@ -29,6 +29,8 @@ Route::group(['middleware'=>'auth'],
         Route::resource('region','RegionController');
 
         Route::resource('code','CodeController');
+        
+        
 
         Route::prefix('reports')->group(
             function ()
@@ -36,5 +38,6 @@ Route::group(['middleware'=>'auth'],
                 Route::any('/form4bygender', 'Reports\Form4Controller@getForm4ByGender'); //форма4 по полу
                 Route::any('/form4bycomparison', 'Reports\Form4Controller@getForm4ByComparison'); //форма 4 в сравнении с прошлым периодом
                 Route::any('/countbyregion', 'Reports\CountByRegionController@getForm'); //count по ЛПУ
+                Route::any('/list', 'Reports\FilterListController@getForm'); //список
             });
     });
