@@ -20,14 +20,14 @@
 						{{-- startdate field --}}
 						<label for="startdate" class="col-md-4 control-label">Отчетный период с</label>
 						<div class="col-md-3">
-							<input id="startdate" type="text" class="form-control" name="startdate" value="">
+							<input id="startdate" type="text" class="form-control" name="startdate" value="{{ $settings['startdate'] }}">
 						</div>
 						{{-- end startdate field --}}
 						
 						{{-- enddate field --}}
 						<label for="enddate" class="col-md-1 control-label">по</label>
 						<div class="col-md-3">
-							<input id="enddate" type="text" class="form-control" name="enddate" value="{{ old('enddate') }}">
+							<input id="enddate" type="text" class="form-control" name="enddate" value="{{ $settings['enddate'] }}">
 						</div>
 						{{-- end enddate field --}}
 

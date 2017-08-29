@@ -18,7 +18,7 @@
 		<div class="form-group">
 			
 			<label for="startdate" class="control-label">Отчетный период c</label>
-			<input id="startdate" type="text" class="form-control" name="startdate" value="{{ \Config::get('settings.startdate') }}">
+			<input id="startdate" type="text" class="form-control" name="startdate" value="{{ $viewdata['startdate'] or old('startdate') }}">
 		</div>
 		{{-- end startdate field --}}
 		
@@ -26,7 +26,7 @@
 		<div class="form-group">
 			
 			<label for="enddate" class="control-label">по</label>
-			<input id="enddate" type="text" class="form-control" name="enddate" value="{{ \Config::get('settings.enddate') }}">
+			<input id="enddate" type="text" class="form-control" name="enddate" value="{{ $viewdata['enddate'] or old('enddate') }}">
 		</div>
 		{{-- end enddate field --}}
 

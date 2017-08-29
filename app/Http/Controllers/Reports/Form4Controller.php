@@ -16,7 +16,10 @@ class Form4Controller extends Controller
     {
     	
 		if($this->request->isMethod('get')){
-            return view('reports.form4.bygender.form')->with('referenceRegion', \App\Region::orderBy('id')->get());
+            return view('reports.form4.bygender.form')->with([
+            	'referenceRegion' => \App\Region::orderBy('id')->get(),
+            	'settings' => \App\Setting::viewdata(),
+            ]);
         }
         
 		$startdate = date("Y-m-d",strtotime($this->request->startdate));
@@ -48,7 +51,10 @@ class Form4Controller extends Controller
     {	
     	
 		if($this->request->isMethod('get')){
-            return view('reports.form4.bycomparison.form')->with('referenceRegion', \App\Region::orderBy('id')->get());
+            return view('reports.form4.bycomparison.form')->with([
+            	'referenceRegion' => \App\Region::orderBy('id')->get(),
+            	'settings' => \App\Setting::viewdata(),
+            ]);
         }
 		
 		$startdate = date("Y-m-d",strtotime($this->request->startdate));

@@ -15,7 +15,8 @@ class FilterListController extends Controller{
 			return view('reports.list.form')->with([
 				'referenceRegion'=>\App\Region::orderBy('id')->get(),			
 				'referenceDiagnose'=>\App\Diagnose::all(),			
-				'referenceCode'=>\App\Code::orderBy('weight')->get(),			
+				'referenceCode'=>\App\Code::orderBy('weight')->get(),
+				'settings' => \App\Setting::viewdata(),			
 			]);
 		}
 		

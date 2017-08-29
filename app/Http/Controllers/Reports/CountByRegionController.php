@@ -15,7 +15,7 @@ class CountByRegionController extends Controller
     public function getForm()
 	{
 		if($this->request->isMethod('get')){
-            return view('reports.countbyregion.form');
+            return view('reports.countbyregion.form')->with('settings', \App\Setting::viewdata());
         }
         
         $startdate = date("Y-m-d",strtotime($this->request->startdate));
