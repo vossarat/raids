@@ -13,4 +13,12 @@
 			<p>Добавить карту</p>
 		</a>
 	</li>
+	
+	<!--<li>
+		<a href="{{ route('settings') }}">
+			<i class="fa fa-wrench fa-4x"></i>
+
+			<p>Установки</p>
+		</a>
+	</li>-->
 </ul>

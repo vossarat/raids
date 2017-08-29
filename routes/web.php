@@ -16,6 +16,13 @@ Route::prefix('setup')->group(
                 Route::post('/append', 'SetupController@appendTable')->name('append');
                 Route::post('/make/table', 'SetupController@makeTable');
             });
+            
+Route::prefix('settings')->group(
+            function ()
+            {
+                Route::get('/', 'SettingsController@index')->name('settings');
+                Route::post('/period', 'SettingsController@setPeriod')->name('period');
+            });
 
 Auth::routes();
 

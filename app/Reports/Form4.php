@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Form4 extends Model{
 	
 	//Форма 4 по полу
-	public static function getForm4ByGender($startdate, $enddate, $region, $calcBy)
-	{
+	public static function getForm4ByGender($startdate, $enddate, $region, $calcBy){
 		$parent = DB::table('code')
 		->leftJoin('code as parent', 'parent.id', '=', 'code.parent_id')		
 		->leftJoin('code as parent_parent', 'parent.parent_id', '=', 'parent_parent.id')
@@ -67,24 +66,24 @@ class Form4 extends Model{
 		->leftJoin('register', 'code.id', '=', 'register.code_id')
 		->whereBetween('register.grantdate', [$startdate, $enddate])
 		->where(
-			function($query) use ($region){
-				if($region){
-					$query->where('register.region_id', '=', $region);
-				}
-			})
+		function($query) use ($region){
+		if($region){
+		$query->where('register.region_id', '=', $region);
+		}
+		})
 		->where(
-			function($query) use ($calcBy){
-				if($calcBy){
-					$query->where('register.city_id', '=', $calcBy);
-				}
-			})
+		function($query) use ($calcBy){
+		if($calcBy){
+		$query->where('register.city_id', '=', $calcBy);
+		}
+		})
 		->whereColumn('parent.id', '<>', 'parent.parent_id')
 		->whereColumn('register.code_id', '<>', 'code.parent_id')
 		->select('code.id',
-			DB::raw('SUM(CASE WHEN (register.sex_id = 2) THEN 1 ELSE 0 END) as mens'),
-			DB::raw('SUM(CASE WHEN (register.sex_id = 3) THEN 1 ELSE 0 END) as womens'),
-			DB::raw('SUM(CASE WHEN (register.sex_id = 1) THEN 1 ELSE 0 END) as notspecified'),
-			DB::raw('COUNT(register.sex_id) as total')
+		DB::raw('SUM(CASE WHEN (register.sex_id = 2) THEN 1 ELSE 0 END) as mens'),
+		DB::raw('SUM(CASE WHEN (register.sex_id = 3) THEN 1 ELSE 0 END) as womens'),
+		DB::raw('SUM(CASE WHEN (register.sex_id = 1) THEN 1 ELSE 0 END) as notspecified'),
+		DB::raw('COUNT(register.sex_id) as total')
 		)
 		->groupBy('code.id')
 		->union($code)
@@ -122,13 +121,23 @@ class Form4 extends Model{
 		->union($parent)
 		->get();
 		
-		return $viewdata;
+		$dataOnCode100 = self::search($viewdata, '1');
+		$dataOnCode200 = self::search($viewdata, '17');
+		
+		$dataOnCode300 = array(
+			'id' => 26, // id для code 300
+			'mens'=>$dataOnCode100->mens + $dataOnCode200->mens,		
+			'womens'=>$dataOnCode100->womens + $dataOnCode200->womens,		
+			'notspecified'=>$dataOnCode100->notspecified + $dataOnCode200->notspecified,		
+			'total'=>$dataOnCode100->total + $dataOnCode200->total,		
+		);
+
+		return $viewdata->prepend( (object) $dataOnCode300); //объединяю db select с $dataOnCode300
 
 	}
 	
 	//Форма 4 в сравнении
-	public static function getForm4ByComparison($startdate, $enddate, $region)
-	{ 
+	public static function getForm4ByComparison($startdate, $enddate, $region){ 
 		$startdateMinusYear = date("Y-m-d",strtotime($startdate . " -1 year"));
 		$enddateMinusYear = date("Y-m-d",strtotime($enddate . " -1 year"));
 		
@@ -143,12 +152,12 @@ class Form4 extends Model{
 					$query->where('register.region_id', '=', $region);
 				}
 			})
-/*		->where(
-			function($query) use ($calcBy){
-				if($calcBy){
-					$query->where('register.city_id', '=', $calcBy);
-				}
-			})*/
+		/*		->where(
+		function($query) use ($calcBy){
+		if($calcBy){
+		$query->where('register.city_id', '=', $calcBy);
+		}
+		})*/
 		->select('parent_parent.id',
 			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdateMinusYear' AND '$enddateMinusYear') THEN 1 ELSE 0 END) as lastcount"),
 			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdate' AND '$enddate') THEN 1 ELSE 0 END) as currentcount")
@@ -166,12 +175,12 @@ class Form4 extends Model{
 					$query->where('register.region_id', '=', $region);
 				}
 			})
-/*		->where(
-			function($query) use ($calcBy){
-				if($calcBy){
-					$query->where('register.city_id', '=', $calcBy);
-				}
-			})*/
+		/*		->where(
+		function($query) use ($calcBy){
+		if($calcBy){
+		$query->where('register.city_id', '=', $calcBy);
+		}
+		})*/
 		->whereColumn('parent.id', '<>', 'parent.parent_id')
 		->select('parent.id',
 			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdateMinusYear' AND '$enddateMinusYear') THEN 1 ELSE 0 END) as lastcount"),
@@ -191,12 +200,12 @@ class Form4 extends Model{
 					$query->where('register.region_id', '=', $region);
 				}
 			})
-/*		->where(
-			function($query) use ($calcBy){
-				if($calcBy){
-					$query->where('register.city_id', '=', $calcBy);
-				}
-			})*/
+		/*		->where(
+		function($query) use ($calcBy){
+		if($calcBy){
+		$query->where('register.city_id', '=', $calcBy);
+		}
+		})*/
 		->whereNotIn('register.code_id', DB::table('code')->select('code.parent_id'))
 		->select('code.id',
 			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdateMinusYear' AND '$enddateMinusYear') THEN 1 ELSE 0 END) as lastcount"),
@@ -207,7 +216,34 @@ class Form4 extends Model{
 		->union($parent)
 		->get();
 		
-		return $viewdata;
+		$dataOnCode100 = self::search($viewdata, '1');
+		$dataOnCode200 = self::search($viewdata, '17');
+		
+		$dataOnCode300 = array(
+			'id' => 26, // id для code 300
+			'lastcount'=>$dataOnCode100->lastcount + $dataOnCode200->lastcount,		
+			'currentcount'=>$dataOnCode100->currentcount + $dataOnCode200->currentcount,		
+		);
+		
+		return $viewdata->prepend( (object) $dataOnCode300); //объединяю db select с $dataOnCode300
 		
 	}
+	
+	/**
+	* Поиск значений по индексу code для суммирования на 300 код
+	* @param array $array 
+	* @param code $value
+	* 
+	* @return 
+	*/
+	public static function search($array, $value){
+		foreach($array as $data){
+			if($data->id == $value){				
+				return $data;
+			}
+		}			
+		
+	}
+	
 }
+
