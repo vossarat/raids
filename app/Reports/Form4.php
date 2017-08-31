@@ -122,7 +122,24 @@ class Form4 extends Model{
 		->get();
 		
 		$dataOnCode100 = self::search($viewdata, '1');
+		if(!$dataOnCode100){
+			$dataOnCode100 = (object) array(
+			'id' => 1, // id для code 300
+			'mens'=>0,		
+			'womens'=>0,		
+			'notspecified'=>0,		
+			'total'=>0,	);
+		}
+				
 		$dataOnCode200 = self::search($viewdata, '17');
+		if(!$dataOnCode200){
+			$dataOnCode200 = (object) array(
+			'id' => 17, // id для code 300
+			'mens'=>0,		
+			'womens'=>0,		
+			'notspecified'=>0,		
+			'total'=>0,	);
+		}
 		
 		$dataOnCode300 = array(
 			'id' => 26, // id для code 300
@@ -152,12 +169,6 @@ class Form4 extends Model{
 					$query->where('register.region_id', '=', $region);
 				}
 			})
-		/*		->where(
-		function($query) use ($calcBy){
-		if($calcBy){
-		$query->where('register.city_id', '=', $calcBy);
-		}
-		})*/
 		->select('parent_parent.id',
 			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdateMinusYear' AND '$enddateMinusYear') THEN 1 ELSE 0 END) as lastcount"),
 			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdate' AND '$enddate') THEN 1 ELSE 0 END) as currentcount")
@@ -175,12 +186,6 @@ class Form4 extends Model{
 					$query->where('register.region_id', '=', $region);
 				}
 			})
-		/*		->where(
-		function($query) use ($calcBy){
-		if($calcBy){
-		$query->where('register.city_id', '=', $calcBy);
-		}
-		})*/
 		->whereColumn('parent.id', '<>', 'parent.parent_id')
 		->select('parent.id',
 			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdateMinusYear' AND '$enddateMinusYear') THEN 1 ELSE 0 END) as lastcount"),
@@ -200,12 +205,6 @@ class Form4 extends Model{
 					$query->where('register.region_id', '=', $region);
 				}
 			})
-		/*		->where(
-		function($query) use ($calcBy){
-		if($calcBy){
-		$query->where('register.city_id', '=', $calcBy);
-		}
-		})*/
 		->whereNotIn('register.code_id', DB::table('code')->select('code.parent_id'))
 		->select('code.id',
 			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdateMinusYear' AND '$enddateMinusYear') THEN 1 ELSE 0 END) as lastcount"),
@@ -217,7 +216,20 @@ class Form4 extends Model{
 		->get();
 		
 		$dataOnCode100 = self::search($viewdata, '1');
+		if(!$dataOnCode100){
+			$dataOnCode100 = (object) array(
+			'id' => 1, // id для code 300
+			'lastcount'=>0,		
+			'currentcount'=>0,	);
+		}
+		
 		$dataOnCode200 = self::search($viewdata, '17');
+		if(!$dataOnCode200){
+			$dataOnCode200 = (object) array(
+			'id' => 17, // id для code 300
+			'lastcount'=>0,		
+			'currentcount'=>0,	);
+		}
 		
 		$dataOnCode300 = array(
 			'id' => 26, // id для code 300
