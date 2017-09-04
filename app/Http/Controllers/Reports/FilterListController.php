@@ -48,7 +48,7 @@ class FilterListController extends Controller{
 										$query->where('diagnose_id', '=', $diagnose);
 									}
 								})
-							->paginate(20),
+							->paginate(150),
 			'startdate' => $this->request->startdate,
 			'enddate' =>  $this->request->enddate,
 			'region' => $region ? \App\Region::find($region)->name : ' По всем ЛПУ',

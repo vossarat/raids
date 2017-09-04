@@ -55,7 +55,7 @@
 
 <table>
 	<tr>
-		<td colspan="7" class="noborder">Примечание: Отображается не более 20 записей фильтра</td>
+		<td colspan="7" class="noborder">Примечание: Отображается не более 150 записей фильтра</td>
 	</tr>
 </table>
 @endsection

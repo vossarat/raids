@@ -70,8 +70,9 @@
 							@endforeach			
 						</select>
 					</div>
-				</div>{{-- end diagnose field --}} 
+				</div>{{-- end diagnose field --}}
 				
+			
 				<div class="form-group">
 					<label for="radio" class="col-md-3 col-md-offset-1 control-label">Вывод на:</label>
 					<div class="col-md-2">	
