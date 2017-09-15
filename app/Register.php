@@ -30,6 +30,7 @@ class Register extends Model
 		'user_id',
 		'imunnoblot',
 		'grantdate',
+		'dublicate',
 	];
 	
 	public function sex()

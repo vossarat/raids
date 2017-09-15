@@ -101,5 +101,6 @@
 @push('scripts')
 <script src="{{ asset('js/jquery.maskedinput.js') }}"></script>
 <script src="{{ asset('js/maskinputdate.js') }}"></script>
+<script src="{{ asset('js/index/filter_city_on_region.js') }}"></script>
 @endpush
 @endsection

@@ -60,38 +60,6 @@ class Form4 extends Model{
 		)
 		->groupBy('parent.id');
 		
-		/*$viewdata = DB::table('code')
-		->leftJoin('code as parent', 'parent.id', '=', 'code.parent_id')		
-		->leftJoin('code as parent_parent', 'parent.parent_id', '=', 'parent_parent.id')
-		->leftJoin('register', 'code.id', '=', 'register.code_id')
-		->whereBetween('register.grantdate', [$startdate, $enddate])
-		->where(
-		function($query) use ($region){
-		if($region){
-		$query->where('register.region_id', '=', $region);
-		}
-		})
-		->where(
-		function($query) use ($calcBy){
-		if($calcBy){
-		$query->where('register.city_id', '=', $calcBy);
-		}
-		})
-		->whereColumn('parent.id', '<>', 'parent.parent_id')
-		->whereColumn('register.code_id', '<>', 'code.parent_id')
-		->select('code.id',
-		DB::raw('SUM(CASE WHEN (register.sex_id = 2) THEN 1 ELSE 0 END) as mens'),
-		DB::raw('SUM(CASE WHEN (register.sex_id = 3) THEN 1 ELSE 0 END) as womens'),
-		DB::raw('SUM(CASE WHEN (register.sex_id = 1) THEN 1 ELSE 0 END) as notspecified'),
-		DB::raw('COUNT(register.sex_id) as total')
-		)
-		->groupBy('code.id')
-		->union($code)
-		->union($parent)
-		->get();
-		
-		return $viewdata;*/
-		
 		$viewdata = DB::table('code')
 		->leftJoin('code as parent', 'parent.id', '=', 'code.parent_id')		
 		->leftJoin('code as parent_parent', 'parent.parent_id', '=', 'parent_parent.id')

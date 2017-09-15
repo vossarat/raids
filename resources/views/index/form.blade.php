@@ -16,6 +16,8 @@
 		
 	</div>
 	
+	
+	
 	<div class="{{ $errors->has('IIN') ? ' has-error' : '' }}">		
 		
 		<label for="IIN" class="col-md-2 control-label">ИИН</label>
@@ -137,7 +139,7 @@
 				@if(isset($viewdata))
 					<option {{ $viewdata->code_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->code.'-'.$item->name }}</option>
 				@else
-					<option value="{{ $item->id }}">{{ $item->code.'-'.$item->name }}</option>
+					<option value="{{ $item->id }}">{{ $item->code.'-'.$item->name }}</option>					
 				@endif
 			@endforeach			
 		</select>
@@ -163,8 +165,8 @@
 			@foreach($referenceCity as $item)
 				@if(isset($viewdata))
 					<option {{ $viewdata->city_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}" data-city="{{ $item->id }}">{{ $item->name }}</option>
-				@else
-					<option value="{{ $item->id }}" data-city="{{ $item->id }}">{{ $item->name }}</option>
+				@else					
+					<option value="{{ $item->id }}" @if(old('city_id') == $item->id) {{ 'selected' }} @endif data-city="{{ $item->id }}">{{ $item->name }}</option>
 				@endif
 			@endforeach			
 		</select>
