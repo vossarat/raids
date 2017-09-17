@@ -15,5 +15,6 @@ class Setting extends Model{
 			$viewdata[$setting->field] = $setting->value;
 		}
 		return $viewdata;
-	}	
+	}
+		
 }

@@ -30,7 +30,7 @@ class Register extends Model
 		'user_id',
 		'imunnoblot',
 		'grantdate',
-		'dublicate',
+		'duplicate',
 	];
 	
 	public function sex()
@@ -106,6 +106,6 @@ class Register extends Model
 	public function ScopeNewform4($query)
 	{
 		return $query;
-	}
+	} 
 	
 }

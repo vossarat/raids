@@ -4,4 +4,5 @@ $(document).ready(function()
 		$("#grantdate").mask("99-99-9999", {placeholder: "дд-мм-гггг" });
 		$("#startdate").mask("99-99-9999", {placeholder: "дд-мм-гггг" });
 		$("#enddate").mask("99-99-9999", {placeholder: "дд-мм-гггг" });
+		$("#closedate").mask("99-99-9999", {placeholder: "дд-мм-гггг" });
 	});

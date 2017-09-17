@@ -106,10 +106,10 @@ class IndexController extends Controller
 	* @param  \Illuminate\Http\Request  $request
 	* @return \Illuminate\Http\Response
 	*/
-	public function store(RegisterRequest $request)
+	public function store(RegisterRequest $request) 
 	{
 		//dd($request->all());
-		Register::create($request->modifyRequest());
+		Register::create($request->modifyRequest('store'));
 		return redirect(route('index.create'))->with([
 				'message' => "Информация по пациенту $request->surname добавлена",
 				'newOrCopy' => $request->newOrCopy,
@@ -158,7 +158,7 @@ class IndexController extends Controller
 	public function update(RegisterRequest $request, $id)
 	{
 		$patient = $this->register->find($id);
-		$patient->update($request->modifyRequest());
+		$patient->update($request->modifyRequest('update'));
 		$patient->save();
 		return redirect(route('index.index'))->with('message',"Информация по пациенту $patient->surname изменена");
 	}

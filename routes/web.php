@@ -22,6 +22,7 @@ Route::prefix('settings')->group(
             {
                 Route::get('/', 'SettingsController@index')->name('settings');
                 Route::post('/period', 'SettingsController@setPeriod')->name('period');
+                Route::post('/closedate', 'SettingsController@closeDate')->name('closedate');
             });
 
 Auth::routes();

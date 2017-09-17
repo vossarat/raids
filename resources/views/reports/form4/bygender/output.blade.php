@@ -44,9 +44,6 @@
 				@endif				
 			@endforeach			
 		@endforeach
-		<tr>
-			<td>400 </td><td></td><td></td><td></td><td></td>
-		</tr>
 	</tbody>
 </table>
 @endsection

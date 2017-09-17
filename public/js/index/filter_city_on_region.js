@@ -14,5 +14,19 @@ $(document).ready(function()
 				}
 				$('#region_id').html(filtered).prop('selectedIndex', 0);
 			});
+			
+		
+		$('.radio').on('change', function(){
+				var selectedCity = $('.radio input:radio:checked').val(),
+				filtered;
+				if(selectedCity == '0') {
+					filtered = cache;
+				} else {
+					filtered = cache.filter(function(){
+							return $(this).data('city') == selectedCity;
+						});
+				}
+				$('#region_id').html(filtered).prop('selectedIndex', 0);
+			});
 		
 	});

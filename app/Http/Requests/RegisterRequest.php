@@ -5,10 +5,17 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use App\Register;
 use Carbon\Carbon;
+use DB;
 use Auth;
-
+use App\Setting;
+ 
 class RegisterRequest extends FormRequest
 {
+	
+	public function __construct()
+	{
+		$this->closedate = Setting::where('field','closedate')->first()->value;
+	}
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -32,7 +39,7 @@ class RegisterRequest extends FormRequest
             'birthday' => 'required',
             'code_id' => 'required',
             //'sex_id' => 'accepted',
-            //'grantdate' => 'required',
+            'grantdate' => 'required|after:'.$this->closedate,
             'city_id' => 'required|in:1,2',
             //'region_id' => 'accepted',
             //'diagnose_id' => 'accepted',
@@ -50,21 +57,49 @@ class RegisterRequest extends FormRequest
             'surname.required' => 'Заполните фамилию пациента',
             'birthday.required' => 'Заполните дату рождения',
             'city_id.in' => 'Заполните местожительства',
+            'grantdate.after' => "Период до $this->closedate закрыт",
+            'grantdate.required' => 'Заполните дату обследования',
             //'max' => 'Максимально количество символов :max',
             //'min' => 'Минимальное количество символов :min',
             //'unique' => 'Значение не уникально',
         ];
     }
     
-	public function modifyRequest() 
+	public function modifyRequest($action) 
 	{	
 		$requestBirthday  = $this->request->get('birthday');
-		$requestGrantdate  = $this->request->get('grantdate');       
+		$requestGrantdate  = $this->request->get('grantdate');
+		$requestSurname  = $this->request->get('surname');
+		$requestCodeId  = $this->request->get('code_id');
+		$requestDiagnoseId  = $this->request->get('diagnose_id');
+		       
         $this->merge(array( 'birthday' => date('Y-m-d', strtotime($requestBirthday)) ));
         $this->merge(array( 'grantdate' => date('Y-m-d', strtotime($requestGrantdate)) ));
         $this->merge(array( 'user_id' => Auth::user()->id ));
-
+        
+        // проверка на дубликат по surname, birthday, code, diagnose в течении месяца
+        if($action == 'store'){
+        	$dublicate = $this->dublicate( $requestGrantdate, $requestSurname, date('Y-m-d', strtotime($requestBirthday)), $requestCodeId, $requestDiagnoseId);
+        	if($dublicate){
+				// в таблице не правильно назвал поле duPPPPPPPPPPPPPPPlicate
+				$this->merge(array( 'duplicate' => 1 ));
+			}			
+		}
         return $this->request->all();
     }
+    
+    public function dublicate($grantdate, $surname, $birthday, $code, $diagnose)
+	{		
+		$dublicateRecord = DB::table('register')
+            ->select('surname', 'birthday', 'code_id', 'diagnose_id')
+            ->where( DB::raw('YEAR(grantdate)'), date("Y",strtotime($grantdate)) )
+            ->where( DB::raw('MONTH(grantdate)'), date("m",strtotime($grantdate)) )
+            ->where('surname', $surname )
+            ->where('birthday', $birthday )
+            ->where('code_id', $code )
+            ->where('diagnose_id', $diagnose )
+            ->count();
+        return $dublicateRecord; 
+	}
     
 }
