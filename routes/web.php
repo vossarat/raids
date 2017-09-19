@@ -25,6 +25,14 @@ Route::prefix('settings')->group(
                 Route::post('/closedate', 'SettingsController@closeDate')->name('closedate');
             });
 
+Route::prefix('tube')->group(
+            function ()
+            {
+                Route::get('/', 'TubeController@index')->name('tube');
+                Route::post('/add', 'TubeController@add')->name('addtube');
+               
+            });
+
 Auth::routes();
 
 Route::group(['middleware'=>'auth'],

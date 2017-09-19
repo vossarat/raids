@@ -21,4 +21,11 @@
 			<p>Установки</p>
 		</a>
 	</li>
+	<!--<li>
+		<a href="{{ route('tube') }}">
+			<i class="fa fa-hospital-o fa-4x"></i>
+
+			<p>Плашки</p>
+		</a>
+	</li>-->
 </ul>

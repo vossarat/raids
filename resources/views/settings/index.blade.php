@@ -57,7 +57,7 @@
 		
 		{{-- button save close period --}}
 		<div class="form-group">
-			<button type="submit" class="btn btn-info" {{ Auth::user()->id == 3 ? '' : 'disabled' }}>
+			<button type="submit" class="btn btn-info" {{ Auth::user()->id == 1 ? '' : 'disabled' }}>
 				Закрыть период
 			</button>
 		</div>
