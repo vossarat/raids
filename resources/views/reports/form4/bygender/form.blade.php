@@ -36,13 +36,12 @@
 				<div class="form-group">{{-- region/lpu field --}}						
 					<label for="region" class="col-md-3 col-md-offset-1 control-label">ЛПУ</label>							
 					<div class="col-md-7">
-						<select class="form-control" name="region" id="region_id">									
+						<select class="form-control" name="region" id="region_id">
+								<option value="0" data-city="0" >По всем регионам</option>									
+								<option value="0" data-city="1" >По всем регионам</option>									
+								<option value="0" data-city="2" >По всем регионам</option>									
 							@foreach($referenceRegion as $item)
-								@if($item->id == 0)
-									<option value="{{ $item->id }}" data-city="{{ $item->city_id }}">По всем регионам</option>
-								@else
-									<option value="{{ $item->id }}" data-city="{{ $item->city_id }}">{{ $item->name }}</option>
-								@endif								
+								<option value="{{ $item->id }}" data-city="{{ $item->city_id }}">{{ $item->name }}</option>
 							@endforeach			
 						</select>
 					</div>
