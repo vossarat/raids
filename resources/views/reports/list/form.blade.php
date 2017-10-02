@@ -72,6 +72,18 @@
 					</div>
 				</div>{{-- end diagnose field --}}
 				
+				<div class="form-group">{{-- diagnose field --}}						
+					<label for="sex" class="col-md-3 col-md-offset-1 control-label">Пол</label>							
+					<div class="col-md-7">
+						<select class="form-control" name="sex">									
+							<option value="0">без учета пола</option>
+							<option value="1">не указано</option>
+							<option value="2">мужской</option>
+							<option value="3">женский</option>
+						</select>
+					</div>
+				</div>{{-- end diagnose field --}}
+				
 			
 				<div class="form-group">
 					<label for="radio" class="col-md-3 col-md-offset-1 control-label">Вывод на:</label>

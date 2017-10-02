@@ -25,6 +25,7 @@ class FilterListController extends Controller{
 		$region = $this->request->region;
 		$code = $this->request->code;
 		$diagnose = $this->request->diagnose;
+		$sex = $this->request->sex;
 		
 		$attributes = array(
 			'filename' => 'Список',
@@ -48,12 +49,19 @@ class FilterListController extends Controller{
 										$query->where('diagnose_id', '=', $diagnose);
 									}
 								})
-							->paginate(15000),
+							->where(
+								function($query) use ($sex){
+									if($sex){
+										$query->where('sex_id', '=', $sex);
+									}
+								})
+							->paginate(150),
 			'startdate' => $this->request->startdate,
 			'enddate' =>  $this->request->enddate,
 			'region' => $region ? \App\Region::find($region)->name : ' По всем ЛПУ',
 			'code' => $code ? \App\Code::find($code)->name : ' По всем кодам',
 			'diagnose' => $diagnose ? \App\Diagnose::find($diagnose)->name : ' По всем диагнозам',
+			'sex' => $sex ? \App\Sex::find($sex)->name : ' Без учета пола',
 		);
         
 		if($this->request->output == 'toScreen'){
