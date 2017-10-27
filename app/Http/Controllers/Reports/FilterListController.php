@@ -55,7 +55,7 @@ class FilterListController extends Controller{
 										$query->where('sex_id', '=', $sex);
 									}
 								})
-							->paginate(150),
+							->paginate(500),
 			'startdate' => $this->request->startdate,
 			'enddate' =>  $this->request->enddate,
 			'region' => $region ? \App\Region::find($region)->name : ' По всем ЛПУ',
