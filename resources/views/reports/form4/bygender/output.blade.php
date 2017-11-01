@@ -16,7 +16,6 @@
 		</tr>
 		<tr>
 			<td colspan="4" class="noborder">Наименование региона (ЛПУ): {{ $region }}</td>
-			<!--<td> {{ $inParent }}</td>-->
 		</tr>
 	</table>
 </div>
