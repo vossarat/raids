@@ -26,16 +26,18 @@ class Form4Controller extends Controller
 		$enddate = date("Y-m-d",strtotime($this->request->enddate));
 		$regionId = $this->request->region;
 		$calcBy = $this->request->calcBy;
+		$inParent = $this->request->inParent;
 				
         $attributes = array(
             'filename' => 'Форма4',
             'view' => 'reports.form4.bygender.output',
-            'viewdata' => \App\Reports\Form4::getForm4ByGender($startdate, $enddate, $regionId, $calcBy),
+            'viewdata' => \App\Reports\Form4::getForm4ByGender($startdate, $enddate, $regionId, $calcBy, $inParent),
             'startdate' => $this->request->startdate,
             'enddate' =>  $this->request->enddate,
             'referenceCode' =>  \App\Code::orderBy('weight')->get(),
             'region' => $regionId ? \App\Region::find($regionId)->name : ' По всем регионам',
             'city' => $calcBy ? $this->addCityReportName(\App\City::find($calcBy)->name) : ' ИТОГО',
+           /* 'inParent' => $inParent ? ' В составе'  : '',*/
         );
         
         if($this->request->output == 'toScreen'){

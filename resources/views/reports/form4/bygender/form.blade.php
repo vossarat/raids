@@ -47,6 +47,13 @@
 					</div>
 				</div>{{-- end region/lpu field --}} 
 				
+				{{--<div class="form-group"> 					
+					<label for="inParent" class="col-md-3 col-md-offset-1 control-label"></label>
+					<div class="col-md-7">
+						<label><input type="checkbox" name="inParent" id="inParent">  В составе</label>
+					</div>
+				</div>{{-- inParent --}} 
+				
 				<div class="form-group">
 					<label for="radio" class="col-md-3 col-md-offset-1 control-label">Группа:</label>
 					<div class="col-md-3">	

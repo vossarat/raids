@@ -15,7 +15,8 @@
 			<td colspan="5" class="noborder">Группа: {{ $city }}</td>
 		</tr>
 		<tr>
-			<td colspan="5" class="noborder">Наименование региона (ЛПУ): {{ $region }}</td>
+			<td colspan="4" class="noborder">Наименование региона (ЛПУ): {{ $region }}</td>
+			<!--<td> {{ $inParent }}</td>-->
 		</tr>
 	</table>
 </div>
