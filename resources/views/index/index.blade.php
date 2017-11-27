@@ -47,14 +47,14 @@
 			<td>{{ $patient->region[0]->name }}</td>
 			<td>     
                 <form action="{{ route('index.edit', $patient->id) }}">
-                	<button type="submit" class="btn-action"><i class="fa fa-edit"></i></button>
+                	<button type="submit" {{ $patient->duplicate ||  $patient->mainduplicate ? 'disabled': '' }} class="btn-action"><i class="fa fa-edit"></i></button>
                 </form>
             </td>
 			<td>
 				<form action="{{ route('index.destroy', $patient->id) }}" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
                     {{ csrf_field() }}
-                    <button type="submit" class="btn-action"><i class="fa fa-trash"></i></button>
+                    <button type="submit" {{ $patient->duplicate ||  $patient->mainduplicate ? 'disabled': '' }} class="btn-action"><i class="fa fa-trash"></i></button>
                 </form>
            </td>
            

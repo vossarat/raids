@@ -26,7 +26,8 @@ class FilterListController extends Controller{
 		$code = $this->request->code;
 		$diagnose = $this->request->diagnose;
 		$sex = $this->request->sex;
-		
+		$dublicate = $this->request->dublicate;
+
 		$attributes = array(
 			'filename' => 'Список',
 			'view' => 'reports.list.output',
@@ -55,6 +56,12 @@ class FilterListController extends Controller{
 										$query->where('sex_id', '=', $sex);
 									}
 								})
+							->where(
+								function($query) use ($dublicate){
+									if($dublicate){
+										$query->where('duplicate', '=', 1);
+									}
+								})
 							->paginate(8000),
 			'startdate' => $this->request->startdate,
 			'enddate' =>  $this->request->enddate,
@@ -62,6 +69,7 @@ class FilterListController extends Controller{
 			'code' => $code ? \App\Code::find($code)->name : ' По всем кодам',
 			'diagnose' => $diagnose ? \App\Diagnose::find($diagnose)->name : ' По всем диагнозам',
 			'sex' => $sex ? \App\Sex::find($sex)->name : ' Без учета пола',
+			'title' => $dublicate ? 'Список по двойным записям в течении месяца' : 'Список',
 		);
         
 		if($this->request->output == 'toScreen'){

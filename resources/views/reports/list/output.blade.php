@@ -6,7 +6,7 @@
 	<a href="{{ url()->previous() }}" class="close" data-dismiss="alert" aria-hidden="true">&times;</a>
 	<table>
 		<tr>
-			<td colspan="8" class="noborder center">Список</td>
+			<td colspan="8" class="noborder center">{{ $title }}</td>
 		</tr>
 		<tr>
 			<td colspan="8" class="noborder">Отчетный период: {{ $startdate.' - '.$enddate }}</td>

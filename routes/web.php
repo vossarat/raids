@@ -56,5 +56,6 @@ Route::group(['middleware'=>'auth'],
                 Route::any('/form4bycomparison', 'Reports\Form4Controller@getForm4ByComparison'); //форма 4 в сравнении с прошлым периодом
                 Route::any('/countbyregion', 'Reports\CountByRegionController@getForm'); //count по ЛПУ
                 Route::any('/list', 'Reports\FilterListController@getForm'); //список
+                Route::any('/dublicate', 'Reports\FilterListController@getFormDublicate'); //список
             });
     });

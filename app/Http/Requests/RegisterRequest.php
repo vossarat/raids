@@ -80,9 +80,11 @@ class RegisterRequest extends FormRequest
         // проверка на дубликат по surname, birthday, code, diagnose в течении месяца
         if($action == 'store'){
         	$dublicate = $this->dublicate( $requestGrantdate, $requestSurname, date('Y-m-d', strtotime($requestBirthday)), $requestCodeId, $requestDiagnoseId);
-        	if($dublicate){
+        	$dublicateRecords = $this->dublicateRecords( $requestGrantdate, $requestSurname, date('Y-m-d', strtotime($requestBirthday)), $requestCodeId, $requestDiagnoseId);
+        	if($dublicate){				
 				// в таблице не правильно назвал поле duPPPPPPPPPPPPPPPlicate
 				$this->merge(array( 'duplicate' => 1 ));
+				$makeReadOnly = DB::update('update register set mainduplicate = 1 where id = ?', [$dublicateRecords->first()->id]);
 			}			
 		}
         return $this->request->all();
@@ -100,6 +102,19 @@ class RegisterRequest extends FormRequest
             ->where('diagnose_id', $diagnose )
             ->count();
         return $dublicateRecord; 
+	}
+	
+	public function dublicateRecords($grantdate, $surname, $birthday, $code, $diagnose)
+	{		
+		$dublicateRecords = DB::table('register')
+            ->select('id', 'surname', 'birthday', 'code_id', 'diagnose_id')
+            ->where( DB::raw('YEAR(grantdate)'), date("Y",strtotime($grantdate)) )
+            ->where( DB::raw('MONTH(grantdate)'), date("m",strtotime($grantdate)) )
+            ->where('surname', $surname )
+            ->where('birthday', $birthday )
+            ->where('code_id', $code )
+            ->where('diagnose_id', $diagnose );
+        return $dublicateRecords; 
 	}
     
 }

@@ -11,7 +11,7 @@ class Form4 extends Model{
 	public static function getForm4ByGender($startdate, $enddate, $region, $calcBy){
 		
 		$dataOnCode400 = DB::table('register')
-		->select(DB::raw('98 as id'),
+		->select(DB::raw('100 as id'),
 			DB::raw('SUM(CASE WHEN (register.sex_id = 2) THEN 1 ELSE 0 END) as mens'),
 			DB::raw('SUM(CASE WHEN (register.sex_id = 3) THEN 1 ELSE 0 END) as womens'),
 			DB::raw('SUM(CASE WHEN (register.sex_id = 1) THEN 1 ELSE 0 END) as notspecified'),
@@ -180,7 +180,7 @@ class Form4 extends Model{
 		
 		
 		$dataOnCode400 = DB::table('register')
-		->select(DB::raw('98 as id'),
+		->select(DB::raw('100 as id'),
 			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdateMinusYear' AND '$enddateMinusYear') THEN 1 ELSE 0 END) as lastcount"),
 			DB::raw("SUM(CASE WHEN (register.grantdate BETWEEN '$startdate' AND '$enddate') THEN 1 ELSE 0 END) as currentcount")
 		)

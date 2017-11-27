@@ -84,6 +84,16 @@
 					</div>
 				</div>{{-- end diagnose field --}}
 				
+				<div class="form-group">
+					<div class="col-md-5 col-md-offset-4">
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" name="dublicate" value="1">Только двойники
+							</label>
+						</div>
+					</div>
+				</div>
+				
 			
 				<div class="form-group">
 					<label for="radio" class="col-md-3 col-md-offset-1 control-label">Вывод на:</label>
