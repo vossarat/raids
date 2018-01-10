@@ -31,6 +31,9 @@ Route::prefix('tube')->group(
             {
                 Route::get('/', 'TubeController@index')->name('tube');
                 Route::post('/add', 'TubeController@add')->name('addtube');
+                Route::any('/destroy{id}', 'TubeController@destroy')->name('destroytube');
+                Route::any('/edit{id}', 'TubeController@edit')->name('edittube');
+                Route::any('/store', 'TubeController@store')->name('storetube');
                
             });
 

@@ -32,6 +32,43 @@
 	</div>
 </div>
 
+<table id="indexTable" class="table table-striped">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Фамилия И.О.</th>
+			<th>Пол</th>
+			<th>Дата рождения</th>
+			<th colspan="2">Действие</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach($viewdata as $tube)
+		<tr>
+			<td>{{ $tube->number }}</td>
+			<td>{{ $tube->surname }}</td>
+			<td>{{ $tube->sex[0]->name }}</td>
+			<td> 01-01-{{ $tube->birthday }}</td>
+			<td>     
+                <form action="{{ route('edittube', $tube->id) }}">
+                	<button type="submit"><i class="fa fa-edit"></i></button>
+                </form>
+            </td>
+			<td>
+				<form action="{{ route('destroytube', $tube->id) }}" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    {{ csrf_field() }}
+                    <button type="submit"><i class="fa fa-trash"></i></button>
+                </form>
+           </td>
+           
+            
+		</tr>
+		@endforeach
+
+	</tbody>
+</table>
+
 @push('scripts')
 <script src="{{ asset('js/jquery.maskedinput.js') }}"></script>
 <script src="{{ asset('js/maskinputdate.js') }}"></script>
