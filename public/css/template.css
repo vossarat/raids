@@ -12,3 +12,7 @@ body {
 .panel-default, .panel-heading {
     border-color: blue !important;
 }
+
+.page-header {
+	margin: 60px 0 20px !important;
+}

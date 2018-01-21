@@ -1,3 +1,5 @@
+<input id="id" type="hidden" class="form-control" name="id" value="{{ $viewdata->id or old('id') }}"> 	{{-- поле id для удаления --}}
+
 <div class="form-group">{{-- number field IIN field --}}
 	<div class="{{ $errors->has('number') ? ' has-error' : '' }}">		
 		
@@ -55,6 +57,7 @@
 		
 	</div>
 	
+	{{-- скрытие имя отчество 
 	<label for="name" class="col-md-1 control-label">Имя</label>
 	<div class="col-md-2">
 		<input id="name" type="text" class="form-control" name="name" value="{{ $viewdata->name or old('name') }}">
@@ -63,7 +66,7 @@
 	<label for="middlename" class="col-md-1 control-label">Отчество</label>
 	<div class="col-md-2">
 		<input id="middlename" type="text" class="form-control" name="middlename" value="{{ $viewdata->middlename or old('middlename') }}">
-	</div>
+	</div> --}}
 	 
 </div> 	{{-- end FIO field --}}
 

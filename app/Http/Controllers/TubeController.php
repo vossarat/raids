@@ -68,11 +68,12 @@ class TubeController extends Controller
 	}
 	
 	public function store(RegisterRequest $request) 
-	{
-		/* $tube = $this->tube->find($request->id);
-		$tube->delete(); */
-		
+	{		
 		Register::create($request->modifyRequest('store'));
+		
+		$tube = $this->tube->find($request->id);
+		$tube->delete();
+		
 		return redirect(route('tube'))->with([
 				'message' => "Информация по пациенту $request->surname перенесена",
 			]);
