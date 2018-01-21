@@ -69,16 +69,27 @@ class TubeController extends Controller
 	
 	public function store(RegisterRequest $request) 
 	{
+		/* $tube = $this->tube->find($request->id);
+		$tube->delete(); */
+		
 		Register::create($request->modifyRequest('store'));
 		return redirect(route('tube'))->with([
 				'message' => "Информация по пациенту $request->surname перенесена",
 			]);
+		
 	}
 	
 	public function edit($id)
 	{
 		$tube = $this->tube->find($id);
-
+		
+		$latestRegister = \App\Register::latest()->first(); //последняя запись из таблицы Register для копирования данных
+		
+		$tube->city_id = $latestRegister->city_id;
+		$tube->region_id = $latestRegister->region_id;
+		$tube->code_id = $latestRegister->code_id;
+		$tube->diagnose_id = $latestRegister->diagnose_id;
+		
 		return view('tube.edit')->with([
 			'referenceSex' => $this->sex->all(),
 			'referenceCity' => $this->city->all(),

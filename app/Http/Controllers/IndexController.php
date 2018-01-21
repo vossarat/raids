@@ -88,7 +88,7 @@ class IndexController extends Controller
 			$viewdata->birthday = NULL;
 			$viewdata->IIN = NULL;
 		}
-
+		
 		return view('index.create')->with([
 				'referenceSex' => $this->sex->all(),
 				'referenceCity' => $this->city->all(),
