@@ -257,7 +257,7 @@
 @push('scripts')
 <script src="{{ asset('js/jquery.maskedinput.js') }}"></script>
 <script src="{{ asset('js/maskinputdate.js') }}"></script>
-<script src="{{ asset('js/index/filter_city_on_region.js') }}"></script>
+<!-- <script src="{{ asset('js/index/filter_city_on_region.js') }}"></script> -->
 @if(Auth::user()->id == 3)
 <script src="{{ asset('js/index/filter_code_on_diagnose.js') }}"></script>
 @endif
