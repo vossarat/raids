@@ -25,8 +25,8 @@
 	<thead>
 		<tr>
 			<th class="col-sm-3">Наименование МО</th>
-			<th class="col-sm-3">Подчиненность</th>
-			<th class="col-sm-2">Местонахождение</th>
+			<!--<th class="col-sm-3">Подчиненность</th>-->
+			<!--<th class="col-sm-2">Местонахождение</th>-->
 			<th class="col-sm-2">Порядок</th>
 			<th class="col-sm-2" colspan="2">Действие</th>
 		</tr>
@@ -35,8 +35,8 @@
 		@foreach($viewdata as $region)
 		<tr>
 			<td class="col-sm-3">{{ $region->name }}</td>
-			<td class="col-sm-3">{{ $region->parent->name }}</td>
-			<td class="col-sm-2">{{ $region->city->name }}</td>
+			<!--<td class="col-sm-3">{{ $region->parent->name }}</td>-->
+			<!--<td class="col-sm-2">{{ $region->city->name }}</td>-->
 			<td class="col-sm-2">{{ $region->weight }}</td>
 			<td class="col-sm-1">     
                 <form action="{{ route('region.edit', $region->id) }}">

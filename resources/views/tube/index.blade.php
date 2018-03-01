@@ -1,7 +1,7 @@
 @extends('layouts.template')
 
 @section('content')
-<h1 class="page-header">Загрузка плашек</h1>
+<h1 class="page-header">__________________</h1>
 
 @if(Session::has('message'))
 <div class="alert alert-success">
@@ -36,6 +36,7 @@
 	<thead>
 		<tr>
 			<th>#</th>
+			<th>ИНН</th>
 			<th>Фамилия И.О.</th>
 			<th>Пол</th>
 			<th>Дата рождения</th>
@@ -46,6 +47,7 @@
 		@foreach($viewdata as $tube)
 		<tr>
 			<td>{{ $tube->number }}</td>
+			<td>{{ $tube->iinumber }}</td>
 			<td>{{ $tube->surname }}</td>
 			<td>{{ $tube->sex[0]->name }}</td>
 			<td> 01-01-{{ $tube->birthday }}</td>

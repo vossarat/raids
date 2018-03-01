@@ -1,4 +1,4 @@
-<div class="form-group">{{-- number field IIN field --}}
+<div class="form-group">{{-- number field number field --}}
 	<div class="{{ $errors->has('number') ? ' has-error' : '' }}">		
 		
 		<label for="number" class="col-md-2 control-label">Регистрационный номер</label>
@@ -18,23 +18,23 @@
 	
 	
 	
-	<div class="{{ $errors->has('IIN') ? ' has-error' : '' }}">		
+	<div class="{{ $errors->has('iinumber') ? ' has-error' : '' }}">		
 		
-		<label for="IIN" class="col-md-2 control-label">ИИН</label>
+		<label for="iinumber" class="col-md-2 control-label">ИИН</label>
 		
 		<div class="col-md-3">
-			<input id="IIN" type="text" class="form-control" name="IIN" value="{{$viewdata->IIN or old('myfield') }}">
-			@if ($errors->has('IIN'))
+			<input id="iinumber" type="text" class="form-control" name="iinumber" value="{{$viewdata->iinumber or old('myfield') }}">
+			@if ($errors->has('iinumber'))
 			<span class="help-block">
 				<strong>
-					{{ $errors->first('IIN') }}
+					{{ $errors->first('iinumber') }}
 				</strong>
 			</span>
 			@endif
 		</div>
 		
 	</div>
-</div> {{-- end number field IIN field--}}
+</div> {{-- end number field iinumber field--}}
 
 
 <div class="form-group">{{-- FIO field --}}

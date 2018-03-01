@@ -25,7 +25,7 @@
 		<a href="{{ route('tube') }}">
 			<i class="fa fa-hospital-o fa-4x"></i> 
 
-			<p>Плашки</p>
+			<p>____</p>
 		</a>
 	</li>
 </ul>

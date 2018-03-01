@@ -50,6 +50,7 @@ class TubeController extends Controller
 					'surname' => $tube['3'],				
 					'sex_id' => $tube['4'] == 'м' ? 2 : 3,				
 					'birthday' => $tube['5'],				
+					//'iinumber' => $tube['6'],				
 				]);
 			}			
 		});
