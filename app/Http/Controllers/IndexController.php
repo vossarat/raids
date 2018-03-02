@@ -86,7 +86,7 @@ class IndexController extends Controller
 			$viewdata->name = NULL;
 			$viewdata->middlename = NULL;
 			$viewdata->birthday = NULL;
-			$viewdata->IIN = NULL;
+			$viewdata->iinumber = NULL;
 		}
 		
 		return view('index.create')->with([
