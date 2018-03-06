@@ -31,7 +31,7 @@
 			<th>Дата рождения</th>
 			<th>Код</th>
 			<th>Дата</th>
-			<th>Регион</th>
+			<!--<th>Регион</th>-->
 			<th colspan="2">Действие</th>
 		</tr>
 	</thead>
@@ -44,7 +44,7 @@
 			<td>{{ date('d-m-Y',strtotime($patient->birthday)) }}</td>
 			<td>{{ $patient->code[0]->code }}</td>
 			<td>{{ $patient->grantdate->format('d-m-Y') }}</td>
-			<td>{{ $patient->region[0]->name }}</td>
+			<!--<td>{{-- $patient->region[0]->name --}}</td>-->
 			<td>     
                 <form action="{{ route('index.edit', $patient->id) }}">
                 	<button type="submit" {{ $patient->duplicate ||  $patient->mainduplicate ? 'disabled': '' }} class="btn-action"><i class="fa fa-edit"></i></button>

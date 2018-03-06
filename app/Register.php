@@ -44,10 +44,10 @@ class Register extends Model
 		return $this->hasMany('App\City', 'id', 'city_id');
 	}
 	
-	public function region()
+	/* public function region()
 	{
 		return $this->hasMany('App\Region', 'id', 'region_id');
-	}
+	} */
 	
 	public function code()
 	{
