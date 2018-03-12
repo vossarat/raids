@@ -33,27 +33,43 @@
 
 				</div>
 				
-				<div class="form-group">{{-- region/lpu field --}}						
-					<label for="region" class="col-md-3 col-md-offset-1 control-label">ЛПУ</label>							
+				<div class="form-group">{{-- cutaway field --}}						
+					<label for="cutaway" class="col-md-3 col-md-offset-1 control-label">В разрезе</label>
 					<div class="col-md-7">
-						<select class="form-control" name="region" id="region_id">
-								<option value="0" data-city="0" >По всем регионам</option>									
+						<select class="form-control" name="cutaway" id="cutaway">
+								<option value="1">ЛПУ</option>
+								<option value="2">Местожительство</option>
+						</select>
+					</div>
+				</div>{{--  cutaway field --}} 
+				
+				<div class="form-group" id="lpu">{{-- region/lpu field --}}						
+					<label for="lpu_id" class="col-md-3 col-md-offset-1 control-label">ЛПУ</label>							
+					<div class="col-md-7">
+						<select class="form-control" name="lpu_id" id="lpu_id">
+								{{-- <option value="0" data-city="0" >По всем регионам</option>								
 								<option value="0" data-city="1" >По всем регионам</option>									
-								<option value="0" data-city="2" >По всем регионам</option>									
+								<option value="0" data-city="2" >По всем регионам</option> 	--}}							
 							@foreach($referenceRegion as $item)
 								<option value="{{ $item->id }}" data-city="{{ $item->city_id }}">{{ $item->name }}</option>
 							@endforeach			
 						</select>
 					</div>
-				</div>{{-- end region/lpu field --}} 
+				</div>{{-- end region/lpu field --}}
 				
-				{{--<div class="form-group"> 					
-					<label for="inParent" class="col-md-3 col-md-offset-1 control-label"></label>
+				<div class="form-group hide" id="residences">{{-- residences field --}}						
+					<label for="residences" class="col-md-3 col-md-offset-1 control-label">Местожительство</label>
 					<div class="col-md-7">
-						<label><input type="checkbox" name="inParent" id="inParent">  В составе</label>
+						<select class="form-control" name="residences" id="residences_id">
+							@foreach($referenceCity as $item)
+								<option value="{{ $item->id }}">{{ $item->name }}</option>
+							@endforeach			
+						</select>
 					</div>
-				</div>{{-- inParent --}} 
+				</div>{{-- end residences field --}} 
 				
+				
+				{{--				
 				<div class="form-group">
 					<label for="radio" class="col-md-3 col-md-offset-1 control-label">Группа:</label>
 					<div class="col-md-3">	
@@ -74,7 +90,7 @@
 						</label>
 					</div> 
 				</div>
-				
+				--}}
 				
 				<div class="form-group">
 					<label for="radio" class="col-md-3 col-md-offset-1 control-label">Вывод на:</label>
@@ -107,6 +123,6 @@
 @push('scripts')
 <script src="{{ asset('js/jquery.maskedinput.js') }}"></script>
 <script src="{{ asset('js/maskinputdate.js') }}"></script>
-<script src="{{ asset('js/index/filter_city_on_region.js') }}"></script>
+<script src="{{ asset('js/report/choice_cutaway.js') }}"></script> {{-- в разрезе: ЛПУ / Местожительство --}}
 @endpush
 @endsection

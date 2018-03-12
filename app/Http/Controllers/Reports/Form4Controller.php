@@ -15,29 +15,36 @@ class Form4Controller extends Controller
     public function getForm4ByGender() 
     {
     	
+   	
 		if($this->request->isMethod('get')){
             return view('reports.form4.bygender.form')->with([
             	'referenceRegion' => \App\Region::orderBy('id')->get(),
+            	'referenceCity' => \App\City::orderBy('id')->get(),
             	'settings' => \App\Setting::viewdata(),
             ]);
         }
         
 		$startdate = date("Y-m-d",strtotime($this->request->startdate));
 		$enddate = date("Y-m-d",strtotime($this->request->enddate));
-		$regionId = $this->request->region;
+		$lpuId = $this->request->lpu_id;
+		$lpuName = $lpuId ? \App\Region::find($lpuId)->name : ' По всем ЛПУ';
 		$calcBy = $this->request->calcBy;
+		$cityId = $this->request->residences_id;
+		$residencesName = $cityId ? \App\City::find($cityId)->name : ' По всем районам';
 		$inParent = $this->request->inParent;
+		$cutaway = $this->request->cutaway;
 				
         $attributes = array(
             'filename' => 'Форма4',
             'view' => 'reports.form4.bygender.output',
-            'viewdata' => \App\Reports\Form4::getForm4ByGender($startdate, $enddate, $regionId, $calcBy, $inParent),
+            'viewdata' => \App\Reports\Form4::getForm4ByGender($startdate, $enddate, $lpuId, $calcBy),
             'startdate' => $this->request->startdate,
             'enddate' =>  $this->request->enddate,
             'referenceCode' =>  \App\Code::orderBy('weight')->get(),
-            'region' => $regionId ? \App\Region::find($regionId)->name : ' По всем регионам',
-            'city' => $calcBy ? $this->addCityReportName(\App\City::find($calcBy)->name) : ' ИТОГО',
-           /* 'inParent' => $inParent ? ' В составе'  : '',*/
+            'region' => $lpuName,
+            'city' => $residencesName,
+            //'city' => $calcBy ? $this->addCityReportName(\App\City::find($calcBy)->name) : ' По всем районам',
+            'cutaway' => $cutaway == 1 ? " ЛПУ: $lpuName"  : "Местожительство: $residencesName",
         );
         
         if($this->request->output == 'toScreen'){

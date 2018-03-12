@@ -30,11 +30,7 @@
 		
 	</head>
 
-	<body>
-	
-		@section('topbar')
-		    @include('layouts.topbar')
-		@show
+	<body>		
 	
         <div class="container-fluid">
               

@@ -12,11 +12,13 @@
 			<td colspan="5" class="noborder">Отчетный период: {{ $startdate.' - '.$enddate }}</td>
 		</tr>
 		<tr>
-			<td colspan="5" class="noborder">Группа: {{ $city }}</td>
+			<td colspan="5" class="noborder">{{ $cutaway }}</td>
 		</tr>
+		{{--  
 		<tr>
 			<td colspan="4" class="noborder">Наименование региона (ЛПУ): {{ $region }}</td>
 		</tr>
+		--}}
 	</table>
 </div>
 
