@@ -24,7 +24,7 @@ class CountByRegionController extends Controller
         $attributes = array(
             'filename' => 'количество по МО',
             'view' => 'reports.countbyregion.output',
-            'viewdata' => \App\Reports\CountByRegion::getForm($startdate, $enddate),
+            'viewdata' => $this->request->cutaway == 1 ? \App\Reports\CountByRegion::getFormByLpu($startdate, $enddate) : \App\Reports\CountByRegion::getFormByResidences($startdate, $enddate),
             'startdate' => $this->request->startdate,
             'enddate' =>  $this->request->enddate,
             'referenceRegion' =>  \App\Region::all(),

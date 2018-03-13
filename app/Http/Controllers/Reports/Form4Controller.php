@@ -28,16 +28,16 @@ class Form4Controller extends Controller
 		$enddate = date("Y-m-d",strtotime($this->request->enddate));
 		$lpuId = $this->request->lpu_id;
 		$lpuName = $lpuId ? \App\Region::find($lpuId)->name : ' По всем ЛПУ';
-		$calcBy = $this->request->calcBy;
-		$cityId = $this->request->residences_id;
-		$residencesName = $cityId ? \App\City::find($cityId)->name : ' По всем районам';
+		//$calcBy = $this->request->calcBy;
+		$residencesId = $this->request->residences_id;
+		$residencesName = $residencesId ? \App\City::find($residencesId)->name : ' По всем районам';
 		$inParent = $this->request->inParent;
 		$cutaway = $this->request->cutaway;
 				
         $attributes = array(
             'filename' => 'Форма4',
             'view' => 'reports.form4.bygender.output',
-            'viewdata' => \App\Reports\Form4::getForm4ByGender($startdate, $enddate, $lpuId, $calcBy),
+            'viewdata' => \App\Reports\Form4::getForm4ByGender($startdate, $enddate, $lpuId, $residencesId),
             'startdate' => $this->request->startdate,
             'enddate' =>  $this->request->enddate,
             'referenceCode' =>  \App\Code::orderBy('weight')->get(),
@@ -46,6 +46,8 @@ class Form4Controller extends Controller
             //'city' => $calcBy ? $this->addCityReportName(\App\City::find($calcBy)->name) : ' По всем районам',
             'cutaway' => $cutaway == 1 ? " ЛПУ: $lpuName"  : "Местожительство: $residencesName",
         );
+		
+		//dd( $this->request->all() );
         
         if($this->request->output == 'toScreen'){
         	$attributes['layout'] = 'layouts.report_to_screen';

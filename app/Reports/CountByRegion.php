@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class CountByRegion extends Model
 {
-    public static function getForm($startdate, $enddate)
+    public static function getFormByLpu($startdate, $enddate)
     {
 	
 		$viewdata = DB::table('register')
@@ -20,6 +20,24 @@ class CountByRegion extends Model
         )
         ->whereBetween('register.grantdate', [$startdate, $enddate])
         ->groupBy('region.id')        
+        ->get();		
+		
+		return $viewdata;
+	}
+	
+	public static function getFormByResidences($startdate, $enddate)
+    {
+	
+		$viewdata = DB::table('register')
+        ->leftJoin('city', 'register.city_id', '=', 'city.id')
+        ->select('city.id as regionid',
+            DB::raw('SUM(CASE WHEN (register.sex_id = 2) THEN 1 ELSE 0 END) as mens'),
+            DB::raw('SUM(CASE WHEN (register.sex_id = 3) THEN 1 ELSE 0 END) as womens'),
+            DB::raw('SUM(CASE WHEN (register.sex_id = 1) THEN 1 ELSE 0 END) as notspecified'),
+            DB::raw('COUNT(register.sex_id) as total')
+        )
+        ->whereBetween('register.grantdate', [$startdate, $enddate])
+        ->groupBy('city.id')        
         ->get();		
 		
 		return $viewdata;

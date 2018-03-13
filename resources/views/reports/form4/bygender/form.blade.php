@@ -60,7 +60,7 @@
 				<div class="form-group hide" id="residences">{{-- residences field --}}						
 					<label for="residences" class="col-md-3 col-md-offset-1 control-label">Местожительство</label>
 					<div class="col-md-7">
-						<select class="form-control" name="residences" id="residences_id">
+						<select class="form-control" name="residences_id" id="residences_id">
 							@foreach($referenceCity as $item)
 								<option value="{{ $item->id }}">{{ $item->name }}</option>
 							@endforeach			

@@ -2,12 +2,12 @@
 
 @section('content')
 
-<h1 class="page-header">Отчеты. Количество обследованных по региону (ЛПУ)</h1>
+<h1 class="page-header">Отчеты. Количество обследованных</h1>
 
 <div class="col-md-8 col-md-offset-2">
 	<div class="panel panel-default">
 		<div class="panel-heading"> {{-- заголовок окна --}}
-			Количество обследованных по региону (ЛПУ)
+			Количество обследованных
 			<a href="{{ route('index.index') }}" class="close" data-dismiss="alert" aria-hidden="true">&times;</a> {{-- х закрыть --}}
 		</div>
 
@@ -31,6 +31,22 @@
 						</div>
 						{{-- end enddate field --}}
 
+				</div>
+				
+				<div class="form-group">
+					<label for="radio" class="col-md-3 col-md-offset-1 control-label">в разрезе :</label>
+					<div class="col-md-2">	
+						<label class="radio text-center">
+							<input type="radio" name="cutaway" value="1" checked="checked"> ЛПУ
+						</label>
+					</div>
+
+					<div class="col-md-2">		
+						<label class="radio">
+							<input type="radio" name="cutaway" value="2"> Местожительства
+						</label>
+					</div> 
+	
 				</div>
 				
 				

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Form4 extends Model{
 	
 	//Форма 4 по полу
-	public static function getForm4ByGender($startdate, $enddate, $region, $calcBy){
+	public static function getForm4ByGender($startdate, $enddate, $region, $residencesId){
 		
 		$dataOnCode400 = DB::table('register')
 		->select(DB::raw('100 as id'),
@@ -25,9 +25,9 @@ class Form4 extends Model{
 				}
 			})
 		->where(
-			function($query) use ($calcBy){
-				if($calcBy){
-					$query->where('register.city_id', '=', $calcBy);
+			function($query) use ($residencesId){
+				if($residencesId){
+					$query->where('register.city_id', '=', $residencesId);
 				}
 			});
 		
@@ -47,9 +47,9 @@ class Form4 extends Model{
 				}
 			})
 		->where(
-			function($query) use ($calcBy){
-				if($calcBy){
-					$query->where('register.city_id', '=', $calcBy);
+			function($query) use ($residencesId){
+				if($residencesId){
+					$query->where('register.city_id', '=', $residencesId);
 				}
 			});
 		
@@ -66,9 +66,9 @@ class Form4 extends Model{
 				}
 			})
 		->where(
-			function($query) use ($calcBy){
-				if($calcBy){
-					$query->where('register.city_id', '=', $calcBy);
+			function($query) use ($residencesId){
+				if($residencesId){
+					$query->where('register.city_id', '=', $residencesId);
 				}
 			})
 		->select('parent_parent.id',
@@ -92,9 +92,9 @@ class Form4 extends Model{
 				}
 			})
 		->where(
-			function($query) use ($calcBy){
-				if($calcBy){
-					$query->where('register.city_id', '=', $calcBy);
+			function($query) use ($residencesId){
+				if($residencesId){
+					$query->where('register.city_id', '=', $residencesId);
 				}
 			})
 		->whereColumn('parent.id', '<>', 'parent.parent_id')
@@ -119,9 +119,9 @@ class Form4 extends Model{
 				}
 			})
 		->where(
-			function($query) use ($calcBy){
-				if($calcBy){
-					$query->where('register.city_id', '=', $calcBy);
+			function($query) use ($residencesId){
+				if($residencesId){
+					$query->where('register.city_id', '=', $residencesId);
 				}
 			})
 		->whereNotIn('register.code_id', DB::table('code')->select('code.parent_id'))
