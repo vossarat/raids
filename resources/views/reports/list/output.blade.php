@@ -36,10 +36,10 @@
 			<th>Номер</th>
 			<th>Фамилия И.О.</th>
 			<th>Пол</th>
-			<th>Местожительство</th>
+			{{--<th>Местожительство</th>--}}
 			<th>Код</th>
 			<th>Диагноз</th>
-			<th>ЛПУ</th>
+			{{--<th>ЛПУ</th>--}}
 			<th>Дата</th>
 		</tr>
 	</thead>
@@ -49,10 +49,10 @@
 					<td>{{ $data->number }}</td>
 					<td>{{ $data->surname }}</td>
 					<td>{{ $data->sex[0]->name }}</td>
-					<td>{{ $data->city[0]->name }}</td>
+					{{--<td>{{ $data->city[0]->name }}</td>--}}
 					<td>{{ $data->code[0]->code.' ' }}</td>
 					<td>{{ $data->diagnose[0]->name }}</td>
-					<td>{{ $data->region[0]->name }}</td>					
+					{{--<td>{{ $data->region[0]->name }}</td>--}}					
 					<td>{{ $data->grantdate->format('d-m-Y') }}</td>
 				</tr>	
 			@endforeach			
