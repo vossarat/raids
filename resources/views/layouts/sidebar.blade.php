@@ -21,11 +21,14 @@
 			<p>Установки</p>
 		</a>
 	</li>
+	@if(Auth::user()->id == 3)
 	<li>
 		<a href="{{ route('tube') }}">
 			<i class="fa fa-hospital-o fa-4x"></i> 
 
 			<p>____</p>
 		</a>
-	</li>
+	</li>	
+	@endif
+	
 </ul>
