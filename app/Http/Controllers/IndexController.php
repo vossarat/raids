@@ -10,11 +10,12 @@ use App\Sex;
 use App\Region;
 use App\Diagnose;
 use App\Code;
+use App\TownVillage;
 use Session;
 
 class IndexController extends Controller
 {
-	public function __construct(Register $register, City $city, Sex $sex, Region $region , Diagnose $diagnose, Code $code)
+	public function __construct(Register $register, City $city, Sex $sex, Region $region , Diagnose $diagnose, Code $code, TownVillage $town_village)
 	{
 		$this->register = $register;
 		$this->city = $city;
@@ -22,6 +23,7 @@ class IndexController extends Controller
 		$this->region = $region;
 		$this->diagnose = $diagnose;
 		$this->code = $code;
+		$this->town_village = $town_village;
 	}
 
 	/**
@@ -59,6 +61,7 @@ class IndexController extends Controller
 		return view('index.index')->with([
 				'viewdata' => $patients->orderBy('grantdate','desc')->orderBy('number','desc')->paginate(10),
 				'referenceCity' => $this->city->all(),
+				'referenceTownVillage' => $this->town_village->all(),
 				'referenceSex' => $this->sex->all(),
 				'referenceRegion' => $this->region->all(),
 				'referenceDiagnose' => $this->diagnose->all(),
@@ -92,6 +95,7 @@ class IndexController extends Controller
 		return view('index.create')->with([
 				'referenceSex' => $this->sex->all(),
 				'referenceCity' => $this->city->all(),
+				'referenceTownVillage' => $this->town_village->all(),
 				'referenceRegion' => $this->region->orderBy('name')->get(),
 				'referenceDiagnose' => $this->diagnose->orderBy('name')->get(),
 				'referenceCode' => $this->code->orderBy('weight')->get(),
@@ -140,6 +144,7 @@ class IndexController extends Controller
 		return view('index.edit')->with([
 				'referenceSex' => $this->sex->all(),
 				'referenceCity' => $this->city->all(),
+				'referenceTownVillage' => $this->town_village->all(),
 				'referenceRegion' => $this->region->all(),
 				'referenceDiagnose' => $this->diagnose->all(),
 				'referenceCode' => $this->code->orderBy('weight')->get(),
@@ -157,7 +162,7 @@ class IndexController extends Controller
 	*/
 	public function update(RegisterRequest $request, $id)
 	{
-		$patient = $this->register->find($id);
+		$patient = $this->register->find($id);		
 		$patient->update($request->modifyRequest('update'));
 		$patient->save();
 		return redirect(route('index.index'))->with('message',"Информация по пациенту $patient->surname изменена");

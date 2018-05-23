@@ -19,6 +19,10 @@
 			<td colspan="4" class="noborder">Наименование региона (ЛПУ): {{ $region }}</td>
 		</tr>
 		--}}
+		
+		<tr>
+			<td colspan="5" class="noborder">Житель: {{ $town_village }}</td>
+		</tr>
 	</table>
 </div>
 

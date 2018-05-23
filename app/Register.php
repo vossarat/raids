@@ -22,6 +22,7 @@ class Register extends Model
 		'name',
 		'middlename',
 		'sex_id',
+		'town_village_id',
 		'birthday',
 		'region_id',
 		'city_id',
@@ -37,6 +38,11 @@ class Register extends Model
 	public function sex()
 	{
 		return $this->hasMany('App\Sex', 'id', 'sex_id');
+	}
+	
+	public function town_village()
+	{
+		return $this->hasMany('App\TownVillage', 'id', 'town_village_id');
 	}
 	
 	public function city()

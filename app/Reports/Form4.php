@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Form4 extends Model{
 	
 	//Форма 4 по полу
-	public static function getForm4ByGender($startdate, $enddate, $region, $residencesId){
+	public static function getForm4ByGender($startdate, $enddate, $region, $residencesId, $townVillageId){
 		
 		$dataOnCode400 = DB::table('register')
 		->select(DB::raw('100 as id'),
@@ -28,6 +28,12 @@ class Form4 extends Model{
 			function($query) use ($residencesId){
 				if($residencesId){
 					$query->where('register.city_id', '=', $residencesId);
+				}
+			})
+		->where(
+			function($query) use ($townVillageId){
+				if($townVillageId){
+					$query->where('register.town_village_id', '=', $townVillageId);
 				}
 			});
 		
@@ -51,6 +57,12 @@ class Form4 extends Model{
 				if($residencesId){
 					$query->where('register.city_id', '=', $residencesId);
 				}
+			})
+		->where(
+			function($query) use ($townVillageId){
+				if($townVillageId){
+					$query->where('register.town_village_id', '=', $townVillageId);
+				}
 			});
 		
 		$parent = DB::table('code')
@@ -69,6 +81,12 @@ class Form4 extends Model{
 			function($query) use ($residencesId){
 				if($residencesId){
 					$query->where('register.city_id', '=', $residencesId);
+				}
+			})
+		->where(
+			function($query) use ($townVillageId){
+				if($townVillageId){
+					$query->where('register.town_village_id', '=', $townVillageId);
 				}
 			})
 		->select('parent_parent.id',
@@ -97,6 +115,12 @@ class Form4 extends Model{
 					$query->where('register.city_id', '=', $residencesId);
 				}
 			})
+		->where(
+			function($query) use ($townVillageId){
+				if($townVillageId){
+					$query->where('register.town_village_id', '=', $townVillageId);
+				}
+			})
 		->whereColumn('parent.id', '<>', 'parent.parent_id')
 		->select('parent.id',
 			DB::raw('SUM(CASE WHEN (register.sex_id = 2) THEN 1 ELSE 0 END) as mens'),
@@ -122,6 +146,12 @@ class Form4 extends Model{
 			function($query) use ($residencesId){
 				if($residencesId){
 					$query->where('register.city_id', '=', $residencesId);
+				}
+			})
+		->where(
+			function($query) use ($townVillageId){
+				if($townVillageId){
+					$query->where('register.town_village_id', '=', $townVillageId);
 				}
 			})
 		->whereNotIn('register.code_id', DB::table('code')->select('code.parent_id'))

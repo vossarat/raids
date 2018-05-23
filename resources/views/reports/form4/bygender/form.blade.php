@@ -68,6 +68,21 @@
 					</div>
 				</div>{{-- end residences field --}} 
 				
+				<div class="form-group">{{-- town_village field --}}						
+					<label for="town_village" class="col-md-3 col-md-offset-1 control-label">Житель</label>							
+					<div class="col-md-7">
+						<select class="form-control" name="town_village">									
+							@foreach($referenceTownVillage as $item)
+								@if($item->id == 0)
+									<option value="{{ $item->id }}">По всем</option>
+								@else
+									<option value="{{ $item->id }}">{{ $item->name }}</option>
+								@endif								
+							@endforeach			
+						</select>
+					</div>
+				</div>{{-- end town_village field --}}
+				
 				
 				{{--				
 				<div class="form-group">

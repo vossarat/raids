@@ -20,6 +20,7 @@ class Form4Controller extends Controller
             return view('reports.form4.bygender.form')->with([
             	'referenceRegion' => \App\Region::orderBy('id')->get(),
             	'referenceCity' => \App\City::orderBy('id')->get(),
+            	'referenceTownVillage' => \App\TownVillage::orderBy('id')->get(), 
             	'settings' => \App\Setting::viewdata(),
             ]);
         }
@@ -28,6 +29,10 @@ class Form4Controller extends Controller
 		$enddate = date("Y-m-d",strtotime($this->request->enddate));
 		$lpuId = $this->request->lpu_id;
 		$lpuName = $lpuId ? \App\Region::find($lpuId)->name : ' По всем ЛПУ';
+		
+		$townVillageId = $this->request->town_village;
+		$townVillageName = $townVillageId ? \App\TownVillage::find($townVillageId)->name : ' По всем жителям';
+		
 		//$calcBy = $this->request->calcBy;
 		$residencesId = $this->request->residences_id;
 		$residencesName = $residencesId ? \App\City::find($residencesId)->name : ' По всем районам';
@@ -37,12 +42,13 @@ class Form4Controller extends Controller
         $attributes = array(
             'filename' => 'Форма4',
             'view' => 'reports.form4.bygender.output',
-            'viewdata' => \App\Reports\Form4::getForm4ByGender($startdate, $enddate, $lpuId, $residencesId),
+            'viewdata' => \App\Reports\Form4::getForm4ByGender($startdate, $enddate, $lpuId, $residencesId, $townVillageId),
             'startdate' => $this->request->startdate,
             'enddate' =>  $this->request->enddate,
             'referenceCode' =>  \App\Code::orderBy('weight')->get(),
             'region' => $lpuName,
             'city' => $residencesName,
+            'town_village' => $townVillageName,
             //'city' => $calcBy ? $this->addCityReportName(\App\City::find($calcBy)->name) : ' По всем районам',
             'cutaway' => $cutaway == 1 ? " ЛПУ: $lpuName"  : "Местожительство: $residencesName",
         );
