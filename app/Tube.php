@@ -12,4 +12,9 @@ class Tube extends Model
 	{
 		return $this->hasMany('App\Sex', 'id', 'sex_id');
 	}
+	
+	public function town_village()
+	{
+		return $this->hasMany('App\TownVillage', 'id', 'town_village_id');
+	}
 }

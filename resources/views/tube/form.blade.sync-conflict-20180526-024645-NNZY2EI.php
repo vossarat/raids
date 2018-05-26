@@ -237,36 +237,6 @@
 </div>
 
 <div class="form-group">
-
-		<div class="{{ $errors->has('town_village_id') ? ' has-error' : '' }}"> {{-- town_village_id field --}}
-		
-		<label for="town_village_id" class="col-md-2 control-label">Житель </label>			
-				
-		
-		<div class="col-md-2">
-		<select class="form-control" name="town_village_id">		
-			@foreach($referenceTownVillage as $item)
-				@if(isset($viewdata))
-					<option {{ $viewdata->town_village_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">{{ $item->name }}</option>
-				@else
-					<option value="{{ $item->id }}">{{ $item->name }}</option>
-				@endif
-			@endforeach			
-		</select>
-
-		@if ($errors->has('town_village_id'))
-		<span class="help-block">
-			<strong>
-				{{ $errors->first('town_village_id') }}
-			</strong>
-		</span>
-		@endif
-		</div>
-	</div>{{-- end town_village_id field --}}
-
-</div>
- 
-<div class="form-group">
 	<div class="col-md-3 col-md-offset-2">
 		<div class="checkbox">
 			<label>

@@ -7,7 +7,7 @@
 	</li>
 
 	<li>
-		<a href="{{ route('index.create') }}">
+		<a href="<?php echo e(route('index.create')); ?>">
 			<i class="fa fa-file-text-o fa-4x"></i>
 
 			<p>Добавить карту</p>
@@ -15,20 +15,20 @@
 	</li>
 	
 	<li>
-		<a href="{{ route('settings') }}">
+		<a href="<?php echo e(route('settings')); ?>">
 			<i class="fa fa-wrench fa-4x"></i>
 
 			<p>Установки</p>
 		</a>
 	</li>
-	@if(Auth::user()->id == 3)
+	<?php if(Auth::user()->id == 3): ?>
 	<li>
-		<a href="{{ route('tube') }}">
+		<a href="<?php echo e(route('tube')); ?>">
 			<i class="fa fa-hospital-o fa-4x"></i> 
 
 			<p>____</p>
 		</a>
 	</li>	
-	@endif
+	<?php endif; ?>
 	
 </ul>

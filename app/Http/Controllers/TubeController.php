@@ -12,12 +12,13 @@ use App\Sex;
 use App\Region;
 use App\Diagnose;
 use App\Code;
+use App\TownVillage;
 use Session;
 use App\Tube;
 
 class TubeController extends Controller
 {
-	public function __construct(Tube $tube, City $city, Sex $sex, Region $region , Diagnose $diagnose, Code $code)
+	public function __construct(Tube $tube, City $city, Sex $sex, Region $region , Diagnose $diagnose, Code $code, TownVillage $town_village)
 	{
 		$this->tube = $tube; //экземпляр класса Tube
 		$this->city = $city;
@@ -25,6 +26,7 @@ class TubeController extends Controller
 		$this->region = $region;
 		$this->diagnose = $diagnose;
 		$this->code = $code;
+		$this->town_village = $town_village;
 	}	
 		
 	public function add()
@@ -94,6 +96,7 @@ class TubeController extends Controller
 		
 		return view('tube.edit')->with([
 			'referenceSex' => $this->sex->all(),
+			'referenceTownVillage' => $this->town_village->all(),
 			'referenceCity' => $this->city->all(),
 			'referenceRegion' => $this->region->all(),
 			'referenceDiagnose' => $this->diagnose->all(),
