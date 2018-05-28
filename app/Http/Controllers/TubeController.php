@@ -93,6 +93,7 @@ class TubeController extends Controller
 		$tube->region_id = $latestRegister->region_id;
 		$tube->code_id = $latestRegister->code_id;
 		$tube->diagnose_id = $latestRegister->diagnose_id;
+		$tube->town_village_id = $latestRegister->town_village_id;
 		
 		return view('tube.edit')->with([
 			'referenceSex' => $this->sex->all(),
